@@ -53,33 +53,34 @@ body {
    <div id="system-live"> <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ski_trail_rating_symbol-green_circle.svg/600px-Ski_trail_rating_symbol-green_circle.svg.png width=30 align="left" /> The system is currently in demo mode </div>
 
 
-   <div id="Preview">
 
-      <canvas width="220" height="300" id="current-data-gauge"></canvas>
-      <div id="current-data-textfield" style="font-size: 54px;"></div>
-      <br>
-      <div style="font-size: 22px;">Watts of Solar Output</div>
-   </div>
+   <canvas width="220" height="300" id="current-data-gauge"></canvas>
+   <div id="current-data-textfield" style="font-size: 40px;"></div>
+   <br>
+   <div style="font-size: 22px;">Watts of Solar Output</div>
    <br>
 
 </div>
 
 </div>
 <div id="currentDataRecent" class="container-fluid">
-   <h1>Recent Data</h1>
-   <canvas width="220" height="300" id="last-hour-data-chart"></canvas>
+<h1>Recent Data</h1>
+<canvas width="220" height="300" id="last-hour-data-chart"></canvas>
 </div>
 <div id="historicalData" class="container-fluid">
-   <h1>Historical Data</h1>
-   <canvas width="220" height="400" id="historical-data-chart"></canvas>
+<h1>Historical Data</h1>
+<canvas width="220" height="400" id="historical-data-chart"></canvas>
 </div>
 <div id="education" class="container-fluid">
-   <h1>Education</h1>
+<h1>Education</h1>
+<?php
+echo "education";
+?>
 </div>
 <div id="team" class="container-fluid">
-   <h1>Team</h1>
-   <div id="graduation-date">
-   </div>
+<h1>Team</h1>
+<div id="graduation-date">
+</div>
 </div>
 
 </body>

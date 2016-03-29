@@ -16,12 +16,13 @@ var opts = {
 
 
 getCurrentData = function(caller) {
-   $.ajax({
+  /* $.ajax({
       url: "/data/current-data.json",
       success: function(result){
          updateGauge(caller, result.output);
       }
    });
+   */
    updateGauge(caller, 1000);
 
 };
@@ -29,11 +30,10 @@ getCurrentData = function(caller) {
 var target = document.getElementById('current-data-gauge'); // your canvas element
 resizeGauge = function() {
    var container = document.getElementById('currentDataLive');
-   target.width = container.offsetWidth;
-   target.width = (container.offsetWidth / 1.5) < 500  
-      ? (container.offsetWidth / 1.5) : 500;
-   target.height = ((window.innerHeight * 0.5) > (container.offsetWidth / 1.5) 
-         ? (container.offsetWidth / 1.5) : window.innerHeight * 0.5);
+   target.height = ((window.innerHeight * 0.5) > (container.offsetHeight * 0.4) 
+         ? (container.offsetHeight * 0.4) : window.innerHeight * 0.5);
+   target.width = (container.offsetWidth ) < 500  
+      ? (container.offsetWidth ) : 500;
 }
 updateGauge = function(caller, level) {
    // Check to see if the counter has been initialized
