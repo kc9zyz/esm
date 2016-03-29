@@ -28,7 +28,7 @@ body {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>                        
          </button>
-         <a class="navbar-brand" href="#">Educational Solar Energy Unit</a>
+         <a class="navbar-brand" href="#">Solar Energy Unit</a>
       </div>
       <div>
          <div class="collapse navbar-collapse" id="myNavbar">
@@ -50,23 +50,31 @@ body {
 
 <div id="currentDataLive" class="container-fluid">
    <h1>Live Data</h1>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+   <div id="system-live"> <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ski_trail_rating_symbol-green_circle.svg/600px-Ski_trail_rating_symbol-green_circle.svg.png width=30 align="left" /> The system is currently in demo mode </div>
+
+
+   <div id="Preview">
+
+      <canvas width="220" height="300" id="current-data-gauge"></canvas>
+      <div id="current-data-textfield" style="font-size: 54px;"></div>
+      <br>
+      <div style="font-size: 22px;">Watts of Solar Output</div>
+   </div>
+   <br>
+
+</div>
+
 </div>
 <div id="currentDataRecent" class="container-fluid">
    <h1>Recent Data</h1>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+   <canvas width="220" height="300" id="last-hour-data-chart"></canvas>
 </div>
 <div id="historicalData" class="container-fluid">
    <h1>Historical Data</h1>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+   <canvas width="220" height="400" id="historical-data-chart"></canvas>
 </div>
 <div id="education" class="container-fluid">
    <h1>Education</h1>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
 </div>
 <div id="team" class="container-fluid">
    <h1>Team</h1>
@@ -75,44 +83,6 @@ body {
 </div>
 
 </body>
-<script defer="" src="scripts/grad-date.js"></script>
-<script>
-function jqueryLoaded() {
- $(document).ready(function(){
-      // Add scrollspy to <body>
-      $('body').scrollspy({target: ".navbar", offset: 50});   
-
-      // Add smooth scrolling on all links inside the navbar
-      $("#myNavbar a").on('click', function(event) {
-
-         // Prevent default anchor click behavior
-         event.preventDefault();
-
-         // Store hash
-         var hash = this.hash;
-         if(hash !=""){
-         // Using jQuery's animate() method to add smooth page scroll
-         // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-         $('html, body').animate({scrollTop: $(hash).offset().top}, 800, function(){
-
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            window.location.hash = hash;
-            });
-         }
-         });
- });
- //do stuff
-}
-
-function checkJquery() {
-   if (window.jQuery) {
-      jqueryLoaded();
-   } else {
-      window.setTimeout(checkJquery, 100);
-   }
-}
-
-checkJquery();
-</script>
+<script defer="" src="scripts/main.js"></script>
 </html>
 
