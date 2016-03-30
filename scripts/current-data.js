@@ -16,11 +16,16 @@ var opts = {
 
 
 getCurrentData = function(caller) {
+   console.log('ajax go');
    $.ajax({
       url: "data/current-data.json",
       success: function(result){
          updateGauge(caller, result.output);
+      },
+      error : function(jq,err) {
+         console.log(err);
       }
+
    });
 };
 
@@ -62,20 +67,11 @@ updateGauge = function(caller, level) {
 
 };
 function waitForElement(){
-   if(typeof Waypoint !== "undefined" && typeof Gauge !== "undefined"){
-      var waypoint = new Waypoint({
-         element: target,
-         handler: function(direction) {
-            getCurrentData('waypoint');
-            this.destroy();
-         },
-         offset: 'bottom-in-view'
-      });
+   if(typeof Gauge !== "undefined"){
+      getCurrentData('waypoint');
    }
    else{
-      setTimeout(function(){
-         waitForElement();
-      },250);
+      setTimeout(waitForElement,250);
    }
 }
 

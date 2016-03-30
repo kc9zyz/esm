@@ -62,7 +62,7 @@ function waitForElement(){
    else{
       setTimeout(function(){
          waitForElement();
-      },250);
+      },25);
    }
 }
 waitForElement();
