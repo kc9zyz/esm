@@ -44,28 +44,21 @@ var options = {
    //Boolean - Whether to fill the dataset with a colour
    datasetFill : true,
 
+   maintainAspectRatio: true,
+   responsive : true,
+
    //String - A legend template
    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
 };
-function waitForElement(){
-   if(typeof Waypoint !== "undefined" && typeof Chart !== "undefined"){
-      var waypoint = new Waypoint({
-         element: document.getElementById("last-hour-data-chart"),
-         handler: function(){
-            getLastHourData();
-            this.destroy();
-         },
-         offset: '90%'
-      })
-   }
-   else{
-      setTimeout(function(){
-         waitForElement();
-      },25);
-   }
-}
-waitForElement();
+var waypoint = new Waypoint({
+   element: document.getElementById("last-hour-data-chart"),
+    handler: function(){
+       getLastHourData();
+       this.destroy();
+    },
+    offset: '90%'
+})
 
 getLastHourData = function() {
    if ( typeof this.firstTime == 'undefined' ) {
@@ -116,9 +109,9 @@ updateLastHour = function(caller, points) {
 
       // Get the context of the canvas element we want to select
       var ctx = document.getElementById("last-hour-data-chart");
-      var container = document.getElementById('currentDataRecent');
-      ctx.width = container.offsetWidth*0.9;
-      ctx.height = ((window.innerHeight * 0.5) > container.offsetHeight*0.7 ? container.offsetHeight*0.7 : window.innerHeight * 0.5);
+      var container = document.getElementById('recentCol');
+      ctx.width = container.clientWidth;
+      console.log(ctx.width);
       this.lastHourChart = new Chart(ctx.getContext("2d")).Line(lastHourData, options);
       setInterval( function() {
          getLastData();

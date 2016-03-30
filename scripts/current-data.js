@@ -31,11 +31,9 @@ getCurrentData = function(caller) {
 
 var target = document.getElementById('current-data-gauge'); // your canvas element
 resizeGauge = function() {
-   var container = document.getElementById('currentDataLive');
-   target.height = ((window.innerHeight * 0.5) > (container.offsetHeight * 0.4) 
-         ? (container.offsetHeight * 0.4) : window.innerHeight * 0.5);
-   target.width = (container.offsetWidth ) < target.height * 1.4  
-      ? (container.offsetWidth ) : target.height * 1.4;
+   var container = document.getElementById('wattCol');
+   target.height = container.offsetHeight * 0.4;
+   target.width = container.offsetWidth;  
 }
 updateGauge = function(caller, level) {
    // Check to see if the counter has been initialized
@@ -45,7 +43,7 @@ updateGauge = function(caller, level) {
    }
    if (caller == 'waypoint' && updateGauge.firstTime == 1) {
       updateGauge.firstTime = 0;
-      resizeGauge();
+      //resizeGauge();
       this.gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
       this.gauge.maxValue = 7000; // set max gauge value
       this.gauge.animationSpeed = 13; // set animation speed (32 is default value)
@@ -57,22 +55,15 @@ updateGauge = function(caller, level) {
       this.gauge.set(level);
       setInterval( function() {
          getCurrentData('time');
-      }, 3000);
+      }, 10000);
 
    }
    else if (caller == 'time' && updateGauge.firstTime == 0) {
-      this.gauge.animationSpeed = 1;
-      this.gauge.set(level);
+      if(this.gauge.value != level){
+         this.gauge.animationSpeed = 1;
+         this.gauge.set(level);
+      }
    }
 
 };
-function waitForElement(){
-   if(typeof Gauge !== "undefined"){
-      getCurrentData('waypoint');
-   }
-   else{
-      setTimeout(waitForElement,250);
-   }
-}
-
-waitForElement();
+getCurrentData('waypoint');
