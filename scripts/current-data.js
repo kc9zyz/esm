@@ -16,15 +16,12 @@ var opts = {
 
 
 getCurrentData = function(caller) {
-  /* $.ajax({
-      url: "/data/current-data.json",
+   $.ajax({
+      url: "data/current-data.json",
       success: function(result){
          updateGauge(caller, result.output);
       }
    });
-   */
-   updateGauge(caller, 1000);
-
 };
 
 var target = document.getElementById('current-data-gauge'); // your canvas element
@@ -32,8 +29,8 @@ resizeGauge = function() {
    var container = document.getElementById('currentDataLive');
    target.height = ((window.innerHeight * 0.5) > (container.offsetHeight * 0.4) 
          ? (container.offsetHeight * 0.4) : window.innerHeight * 0.5);
-   target.width = (container.offsetWidth ) < 500  
-      ? (container.offsetWidth ) : 500;
+   target.width = (container.offsetWidth ) < target.height * 1.4  
+      ? (container.offsetWidth ) : target.height * 1.4;
 }
 updateGauge = function(caller, level) {
    // Check to see if the counter has been initialized
@@ -65,7 +62,7 @@ updateGauge = function(caller, level) {
 
 };
 function waitForElement(){
-   if(typeof Waypoint !== "undefined"){
+   if(typeof Waypoint !== "undefined" && typeof Gauge !== "undefined"){
       var waypoint = new Waypoint({
          element: target,
          handler: function(direction) {

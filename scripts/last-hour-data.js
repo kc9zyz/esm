@@ -5,7 +5,8 @@ var options = {
    scaleShowGridLines : true,
 
    //String - Colour of the grid lines
-   scaleGridLineColor : "rgba(0,0,0,.05)",
+   scaleGridLineColor : "rgba(255,255,255,.05)",
+   scaleFontColor : "rgba(255,255,255,.8)",
 
    //Number - Width of the grid lines
    scaleGridLineWidth : 1,
@@ -48,7 +49,7 @@ var options = {
 
 };
 function waitForElement(){
-   if(typeof Waypoint !== "undefined"){
+   if(typeof Waypoint !== "undefined" && typeof Chart !== "undefined"){
       var waypoint = new Waypoint({
          element: document.getElementById("last-hour-data-chart"),
          handler: function(){
@@ -64,6 +65,7 @@ function waitForElement(){
       },250);
    }
 }
+waitForElement();
 
 getLastHourData = function() {
    if ( typeof this.firstTime == 'undefined' ) {
@@ -71,7 +73,7 @@ getLastHourData = function() {
       this.firstTime = 1;
 
       $.ajax({
-         url: "/data/last-hour-data.json",
+         url: "data/last-hour-data.json",
          success: function(result) {
             updateLastHour('waypoint', [result.times, result.output])
          }
@@ -80,7 +82,7 @@ getLastHourData = function() {
 };
 getLastData = function() {
    $.ajax({
-      url: "/data/last-data.json",
+      url: "data/last-data.json",
       success: function(result) {
          updateLastHour('time', [result.time,result.output])
       }
@@ -114,9 +116,9 @@ updateLastHour = function(caller, points) {
 
       // Get the context of the canvas element we want to select
       var ctx = document.getElementById("last-hour-data-chart");
-      var container = document.getElementById('current-data');
-      ctx.width = container.offsetWidth;
-      ctx.height = ((window.innerHeight * 0.5) > 400 ? 400 : window.innerHeight * 0.5);
+      var container = document.getElementById('currentDataRecent');
+      ctx.width = container.offsetWidth*0.9;
+      ctx.height = ((window.innerHeight * 0.5) > container.offsetHeight*0.7 ? container.offsetHeight*0.7 : window.innerHeight * 0.5);
       this.lastHourChart = new Chart(ctx.getContext("2d")).Line(lastHourData, options);
       setInterval( function() {
          getLastData();
