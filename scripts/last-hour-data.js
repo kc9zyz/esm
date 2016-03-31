@@ -111,7 +111,6 @@ updateLastHour = function(caller, points) {
       var ctx = document.getElementById("last-hour-data-chart");
       var container = document.getElementById('recentCol');
       ctx.width = container.clientWidth;
-      console.log(ctx.width);
       this.lastHourChart = new Chart(ctx.getContext("2d")).Line(lastHourData, options);
       setInterval( function() {
          getLastData();

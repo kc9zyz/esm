@@ -4,30 +4,13 @@
       <title>Educational Solar Module</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
       <link rel="icon" type="image/png" href="http://www.gvsu.edu/favicon.ico">
-      <script src="scripts/LAB.min.js"></script>
-      <script>
-         $LAB
-         .script("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js")
-         .wait()
-         .script("http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
-         .script("scripts/main.js")
-         .script("scripts/jquery.waypoints.min.js")
-         .script("scripts/gauge.min.js")
-         .script("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js")
-         .script("scripts/current-data.js")
-         .script("scripts/last-hour-data.js")
-         .script("scripts/grad-date.js")
-         .script("http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js")
-         .script("scripts/map.js")
-
-      </script>
       <style>
 body {
    position: relative; 
 }
+#intro {padding-top:50px;height:100vh;color: #fff; background-color: #1E88E5;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #1E88E5;}
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;color: #fff; background-color: #00bcd4;}
@@ -46,7 +29,10 @@ body {
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>                        
                </button>
-               <a class="navbar-brand" style="padding:2px 15px ! important;" href="http://gvsu.edu"><img src="gvsuLogo.png" height="45" alt= Educational Solar Module></a>
+               <a class="navbar-brand" style="padding:2px 15px ! important;" href="http://gvsu.edu">
+                  <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJkAAAAtCAMAAACK2TnrAAADAFBMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/LkhhAAAA/3RSTlMAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1O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"
+                  height="45" alt= Educational Solar Module></a>
             </div>
             <div>
                <div class="collapse navbar-collapse" id="myNavbar">
@@ -61,10 +47,12 @@ body {
          </div>
       </nav>    
 
+      <div id="intro" class="container-fluid">
+         <h1>Educational Solar Module</h1>
+      </div>
       <div id="currentDataLive" class="container-fluid">
          <h1>Live Data</h1>
          <div id="system-live">
-            <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ski_trail_rating_symbol-green_circle.svg/600px-Ski_trail_rating_symbol-green_circle.svg.png width=30 align="left"> </img> 
             The system is currently in demo mode 
          </div>
          <div class="row">
@@ -76,39 +64,16 @@ body {
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3>Appliance Lineup</h3>
-               <div class="row">
-                  <div class="col-xs-6">
-                     Appliance
-                  </div>
-                  <div class="col-xs-6">
-                     Amount Powered
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-6">
-                     Refridgerator
-                  </div>
-                  <div class="col-xs-6">
-                     1                     
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-6">
-                     Microwave
-                  </div>
-                  <div class="col-xs-6">
-                     3
-                  </div>
-               </div>
+               <br>
 
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4">
+               <div id="map" style="position: relative"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
                <div id="recentCol">
                   <canvas height=300  style="height:300px!important" id="last-hour-data-chart"></canvas>
-               </div
-               ></div>
-            <div class="col-xs-12 col-sm-12 col-md-4">
-               <div id="map" style="position: relative"></div>
+               </div>
             </div>
          </div>
 
@@ -123,13 +88,35 @@ body {
    </div>
    <div id="education" class="container-fluid">
       <h1>Education</h1>
+      <canvas width="220" height="400" id="historical-data-chart"></canvas>
    </div>
    <div id="team" class="container-fluid">
       <h1>Team</h1>
       <div id="graduation-date">
       </div>
+      <canvas width="220" height="400" id="historical-data-chart"></canvas>
    </div>
 
 </body>
+<script type="text/javascript">
+   function downloadJSAtOnload() {
+   var element = document.createElement("script");
+   element.src = "scripts/min/LAB.min.js";
+   document.body.appendChild(element);
+
+   var element = document.createElement("script");
+   element.src = "scripts/min/main.min.js";
+   document.body.appendChild(element);
+
+   var element = document.createElement("link");
+   element.src = "";
+   document.head.appendChild(element);
+   }
+   if (window.addEventListener)
+   window.addEventListener("load", downloadJSAtOnload, false);
+   else if (window.attachEvent)
+   window.attachEvent("onload", downloadJSAtOnload);
+   else window.onload = downloadJSAtOnload;
+</script>
 </html>
 

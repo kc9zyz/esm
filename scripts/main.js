@@ -1,27 +1,27 @@
-   $(document).ready(function(){
-      // Add scrollspy to <body>
-      $('body').scrollspy({target: ".navbar", offset: 50});   
-
-      // Add smooth scrolling on all links inside the navbar
-      $("#myNavbar a").on('click', function(event) {
-
-         // Prevent default anchor click behavior
-         event.preventDefault();
-
-         // Store hash
-         var hash = this.hash;
-         if (hash != "") {
-            $(".navbar-collapse.in").collapse('hide');
-            // Using jQuery's animate() method to add smooth page scroll
-            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-            $('html, body').animate({scrollTop: $(hash).offset().top}, 800, function(){
-
-               // Add hash (#) to URL when done scrolling (default click behavior)
-               window.location.hash = hash;
-            });
-         }
-      });
-
-   });
+function waitForElement(){
+   if(typeof $LAB !== "undefined"){
+      $LAB
+         .script("https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js")
+         .wait()
+         .script("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+         .wait()
+         .script("scripts/min/jquery.waypoints.min.js")
+         .script("scripts/min/gauge.min.js")
+         .script("scripts/min/leaflet.min.js")
+         .script("scripts/min/scroll.min.js")
+         .script("scripts/min/map.min.js")
+         .script("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js")
+         .script("scripts/min/current-data.min.js")
+         .script("scripts/min/last-hour-data.min.js")
+         .script("scripts/min/grad-date.min.js")
 
 
+         //variable exists, do what you want
+   }
+   else{
+      setTimeout(function(){
+         waitForElement();
+      },250);
+   }
+}
+waitForElement();

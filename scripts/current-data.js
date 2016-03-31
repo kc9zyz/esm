@@ -16,7 +16,6 @@ var opts = {
 
 
 getCurrentData = function(caller) {
-   console.log('ajax go');
    $.ajax({
       url: "data/current-data.json",
       success: function(result){
