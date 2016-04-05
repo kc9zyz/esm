@@ -7,13 +7,7 @@ var myArr = null;
 
 
 // set up the map
-map = new L.Map('map',{scrollWheelZoom: false});
-map.dragging.disable();
-//map.touchZoom.disable();
-//map.doubleClickZoom.disable();
-//map.scrollWheelZoom.disable();
-//map.boxZoom.disable();
-//map.keyboard.disable();
+map = new L.Map('map');
 
 // create the tile layer with correct attribution
 var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -21,8 +15,24 @@ var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> 
 var osm = new L.TileLayer(osmUrl, {minZoom:0 , maxZoom: 19, attribution: osmAttrib});     
 
 // start the map in michigan
-var checkExist = setInterval(function() {
-map.addLayer(osm);
-map.setView(new L.LatLng(42.7922,-86.1073),10);
-map.once('focus',function() { map.scrollWheelZoom.enable(); });
-}, 500); // check every 100ms
+var checkExist = setTimeout(function() {
+   map.addLayer(osm);
+   map.setView(new L.LatLng(42.7922,-86.1073),10);
+
+   var btnState = false;
+   $(".leaflet-control-zoom").css("visibility", "hidden");
+   $("#mapToggle").click(function(){
+      if(btnState){
+         $("#mapToggle").text("Enable Map Controls");
+         $("#map").css("pointer-events","none");
+         $(".leaflet-control-zoom").css("visibility", "hidden");
+         btnState = false;
+      }
+      else{
+         $("#mapToggle").text("Disable  Map Controls");
+         $("#map").css("pointer-events","all");
+         $(".leaflet-control-zoom").css("visibility", "visible");
+         btnState=true;
+      }
+   });
+});
