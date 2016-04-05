@@ -8,6 +8,7 @@ var options = {
    scaleGridLineColor : "rgba(255,255,255,.05)",
    scaleFontColor : "rgba(255,255,255,.8)",
 
+   scaleLabel: "          <%=value%>",
    //Number - Width of the grid lines
    scaleGridLineWidth : 1,
 
@@ -48,7 +49,9 @@ var options = {
    responsive : true,
 
    //String - A legend template
-   legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+   legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+
+
 
 };
 var waypoint = new Waypoint({
@@ -94,7 +97,7 @@ updateLastHour = function(caller, points) {
          labels:   points[0],
          datasets: [
          {
-            label: "My Second dataset",
+            label: "Watts",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
@@ -105,13 +108,36 @@ updateLastHour = function(caller, points) {
 
          }
          ]
+
       };
+      Chart.types.Line.extend({
+         name: "LineAlt",
+         draw: function () {
+            Chart.types.Line.prototype.draw.apply(this, arguments);
+
+            var ctx = this.chart.ctx;
+            ctx.save();
+            // text alignment and color
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillStyle = this.options.scaleFontColor;
+            // position
+            var x = this.scale.xScalePaddingLeft * 0.4;
+            var y = this.chart.height / 2;
+            // change origin
+            ctx.translate(x, y);
+            // rotate text
+            ctx.rotate(-90 * Math.PI / 180);
+            ctx.fillText("Watts", 0, 0);
+            ctx.restore();
+         }
+      });
 
       // Get the context of the canvas element we want to select
       var ctx = document.getElementById("last-hour-data-chart");
       var container = document.getElementById('recentCol');
       ctx.width = container.clientWidth;
-      this.lastHourChart = new Chart(ctx.getContext("2d")).Line(lastHourData, options);
+      this.lastHourChart = new Chart(ctx.getContext("2d")).LineAlt(lastHourData,options);
       setInterval( function() {
          getLastData();
       }, 3000);

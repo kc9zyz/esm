@@ -6,7 +6,7 @@ document.getElementById('system-live-time').innerHTML= 'System has been live for
    +diffDays + ' days';
 
 
-var options = {
+var histoOpts= {
     showXLabels: 10,
 
     ///Boolean - Whether grid lines are shown across the chart
@@ -14,6 +14,8 @@ var options = {
 
     //String - Colour of the grid lines
     scaleGridLineColor : "rgba(57,0,0,.05)",
+   scaleFontColor : "rgba(255,255,255,.8)",
+   scaleLabel: "          <%=value%>",
 
     //Number - Width of the grid lines
     scaleGridLineWidth : 1,
@@ -62,7 +64,7 @@ var ctx = document.getElementById("historical-data-chart");
 
 updateHistoric = function() {
       $.ajax({
-         url: '/data/historical-data.json',
+         url: 'data/historical-data.json',
          success: function(result) {
 
             var historicalData = {
@@ -81,21 +83,44 @@ updateHistoric = function() {
                    }
                ]
             };
-            var container = document.getElementById('historical-data');
-            ctx.width = container.offsetWidth
-            ctx.height = ((window.innerHeight * 0.5) > 400 ? 400 : window.innerHeight * 0.5);
-            var historicalChart = new Chart(ctx.getContext("2d")).Line(historicalData, options);
+            Chart.types.Line.extend({
+               name: "LineAlt",
+               draw: function () {
+                  Chart.types.Line.prototype.draw.apply(this, arguments);
+
+                  var ctx = this.chart.ctx;
+                  ctx.save();
+                  // text alignment and color
+                  ctx.textAlign = "center";
+                  ctx.textBaseline = "bottom";
+                  ctx.fillStyle = this.options.scaleFontColor;
+                  // position
+                  var x = this.scale.xScalePaddingLeft * 0.4;
+                  var y = this.chart.height / 2;
+                  // change origin
+                  ctx.translate(x, y);
+                  // rotate text
+                  ctx.rotate(-90 * Math.PI / 180);
+                  ctx.fillText("Watts", 0, 0);
+                  ctx.restore();
+               }
+            });
+
+            var container = document.getElementById('historicalCol');
+            ctx.width = container.clientWidth
+               var historicalChart = new Chart(ctx.getContext("2d")).LineAlt(historicalData, histoOpts
+                     );
 
          }
       });
 }
 var waypoint = new Waypoint({
-  element: document.getElementById("system-live-time"),
-  handler: function(direction) {
-     updateHistoric();
-     this.destroy();
+   element: document.getElementById("system-live-time"),
+    handler: function(direction) {
+       updateHistoric();
+       this.destroy();
 
-  },
-  offset: 'bottom-in-view'
+    },
+    offset: 'bottom-in-view'
 
 })

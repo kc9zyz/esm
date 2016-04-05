@@ -6,13 +6,15 @@ function waitForElement(){
          .script("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
          .wait()
          .script("scripts/min/jquery.waypoints.min.js")
-         .script("scripts/min/gauge.min.js")
          .script("scripts/min/leaflet.min.js")
+         .wait()
+         .script("scripts/min/gauge.min.js")
          .script("scripts/min/scroll.min.js")
          .script("scripts/min/map.min.js")
          .script("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js")
          .script("scripts/min/current-data.min.js")
          .script("scripts/min/last-hour-data.min.js")
+         .script("scripts/min/historical-data.min.js")
          .script("scripts/min/grad-date.min.js")
 
 
