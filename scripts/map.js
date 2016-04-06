@@ -16,7 +16,7 @@ var osm = new L.TileLayer(osmUrl, {minZoom:0 , maxZoom: 19, attribution: osmAttr
 
 // start the map in michigan
 map.addLayer(osm);
-map.setView(new L.LatLng(42.7922,-86.1073),10);
+map.setView(new L.LatLng(42.9634,-85.890),10);
 
 var btnState = false;
 $(".leaflet-control-zoom").css("visibility", "hidden");
@@ -24,7 +24,7 @@ map.scrollWheelZoom.disable();
 //$(".leaflet-control-attribution").css("pointer-events","none");
 $("#mapToggle").click(function(){
    if(btnState){
-      $("#mapToggle").text("Enable Map Controls");
+      $("#mapToggle").text("\xa0Enable Map Controls");
       $("#map").css("pointer-events","none");
       $(".leaflet-control-zoom").css("visibility", "hidden");
       map.scrollWheelZoom.disable();
