@@ -10,7 +10,7 @@
 body {
    position: relative; 
 }
-#intro {padding-top:50px;color: #000; background-color: LightSkyBlue;}
+#intro {padding-top:50px;min-height:100vh;color: #000; background-color: LightSkyBlue;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;color: #fff; background-color: #00bcd4;}
@@ -109,9 +109,9 @@ body {
                   <span class="caret"></span>
                </button>
                <ul class="dropdown-menu" aria-labelledby="historicalDrop">
-                  <li style="color:#000" ><a>Month</a></li>
-                  <li style="color:#000" ><a>Year</a></li>
-                  <li style="color:#000" ><a>All</a></li>
+                  <li style="color:#000" ><a id="historicalMonth">Month</a></li>
+                  <li style="color:#000" ><a id="historicalYear">Year</a></li>
+                  <li style="color:#000" ><a id="historicalAll">All</a></li>
                </ul>
             </div>
             <div id="historicalCol">

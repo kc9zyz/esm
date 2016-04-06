@@ -125,3 +125,12 @@ var waypoint = new Waypoint({
     offset: 'bottom-in-view'
 
 })
+$("#historicalMonth").on('click', function(event) {
+   alert("MONTH");
+});
+$("#historicalYear").on('click', function(event) {
+   alert("YEAR");
+});
+$("#historicalAll").on('click', function(event) {
+   alert("ALL");
+});
