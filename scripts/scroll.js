@@ -23,6 +23,11 @@
             });
          }
       });
+     /* $(window).scroll(function() {
+           var theta = ($(window).scrollTop() * 0.25) % (2* Math.PI);
+             $('#modelImg').css({ transform: 'rotate('+window.pageYOffset+'deg)' });
+             console.log(window.pageYOffset);
+      });*/
 
    });
 
