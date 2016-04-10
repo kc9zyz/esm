@@ -6,7 +6,7 @@ function waitForElement(){
          .script("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
          .wait()
          .script("scripts/min/jquery.waypoints.min.js")
-         .script("scripts/min/leaflet.min.js")
+         .script("http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js")
          .wait()
          .script("scripts/min/gauge.min.js")
          .script("scripts/min/scroll.min.js")

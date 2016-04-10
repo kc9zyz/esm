@@ -50,18 +50,12 @@ body {
 
       <div id="intro" class="container-fluid">
          <h1 class="text-center"> Educational Solar Module</h1>
-         <img id="modelImg" class = "img-responsive center-block" style="padding:50px" src = "http://www.texasbraggtrailers.com/images/trailers/single-axle-utility-trailers-03.jpg">
+         <img id="modelImg" class = "img-responsive center-block" style="padding:50px" src = "images/trailer.png">
          <p class="text-center">
-         Brooklyn retro aesthetic, venmo heirloom jean shorts green juice whatever selfies master cleanse. Direct trade 3 wolf moon wolf PBR&B YOLO, four dollar toast everyday carry chartreuse dreamcatcher vegan master cleanse post-ironic. Single-origin coffee celiac vice 3 wolf moon 90's. Knausgaard shoreditch meggings, affogato poutine craft beer four dollar toast farm-to-table lo-fi roof party selvage shabby chic YOLO flannel. Shoreditch kombucha brunch gastropub, man bun tumblr marfa
-         church-key. Tofu wayfarers food truck portland, synth kale chips irony cred humblebrag salvia health goth. Hella venmo organic, pour-over knausgaard meh quinoa four loko ethical kombucha post-ironic keytar meggings.
          </p>
          <p class="text-center">
-         Brooklyn retro aesthetic, venmo heirloom jean shorts green juice whatever selfies master cleanse. Direct trade 3 wolf moon wolf PBR&B YOLO, four dollar toast everyday carry chartreuse dreamcatcher vegan master cleanse post-ironic. Single-origin coffee celiac vice 3 wolf moon 90's. Knausgaard shoreditch meggings, affogato poutine craft beer four dollar toast farm-to-table lo-fi roof party selvage shabby chic YOLO flannel. Shoreditch kombucha brunch gastropub, man bun tumblr marfa
-         church-key. Tofu wayfarers food truck portland, synth kale chips irony cred humblebrag salvia health goth. Hella venmo organic, pour-over knausgaard meh quinoa four loko ethical kombucha post-ironic keytar meggings.
          </p>
          <p class="text-center">
-         Brooklyn retro aesthetic, venmo heirloom jean shorts green juice whatever selfies master cleanse. Direct trade 3 wolf moon wolf PBR&B YOLO, four dollar toast everyday carry chartreuse dreamcatcher vegan master cleanse post-ironic. Single-origin coffee celiac vice 3 wolf moon 90's. Knausgaard shoreditch meggings, affogato poutine craft beer four dollar toast farm-to-table lo-fi roof party selvage shabby chic YOLO flannel. Shoreditch kombucha brunch gastropub, man bun tumblr marfa
-         church-key. Tofu wayfarers food truck portland, synth kale chips irony cred humblebrag salvia health goth. Hella venmo organic, pour-over knausgaard meh quinoa four loko ethical kombucha post-ironic keytar meggings.
          </p>
       </div>
       <div id="currentDataLive" class="container-fluid">
@@ -78,19 +72,32 @@ body {
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3 class="text-center">Appliance Lineup</h3>
-               <p id="app1" class="text-center">Refridgerators: 5</p>
-               <p id="app2" class="text-center">Microwaves: 8</p>
-               <p id="app3" class="text-center">Air Conditioners: 2</p>
-               <p id="app4" class="text-center">Space Heaters: 5</p>
+               <p id="appH" class="text-center">Total Watts: 3409W</p>
+               <p id="app1" class="text-center">Electric Fry Pan x 2 = 3000W </p>
+               <p id="app2" class="text-center">Microwaves x 2 = 3000W</p>
+               <p id="app3" class="text-center">Air Conditioners x 3 = 3030W</p>
+               <p id="app4" class="text-center">Space Heaters x 2 = 2600W</p>
 
 
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="col-xs-12 col-sm-12 col-md-4" style="color:#000">
                <button id="mapToggle" type="button" class="btn btn-primary" style="margin-bottom:5px; margin-top:5px">&nbsp;Enable Map Controls</button>
                <div id="map" style="position: relative"></div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                <h2>Output over the last hour</h2>
+               <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="currentDrop" data-toggle="dropdown" aria-haspopup="true">
+                     Select Range
+                     <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="currentDrop">
+                     <li style="color:#000" ><a id="currentHour">Hour</a></li>
+                     <li style="color:#000" ><a id="currentDay">Day</a></li>
+                     <li style="color:#000" ><a id="currentWeek">Week</a></li>
+                  </ul>
+               </div>
+
                <div id="recentCol" style="margin-top:15px; margin-bottom:30px">
                   <canvas height=300  style="height:300px!important" id="last-hour-data-chart"></canvas>
                </div>
@@ -117,15 +124,13 @@ body {
             <div id="historicalCol">
                <canvas width="220" height="400" id="historical-data-chart"></canvas>
             </div>
+            <button id="dataDownload" type="button" class="btn btn-primary" style="margin-bottom:5px; margin-top:5px">Download Data</button>
          </div>
       </div>
    </div>
 
    <div id="education" class="container-fluid">
       <h1>Education</h1>
-      <h2 class="text-center">Chicharrones raw denim drinking vinegar, ut plaid nisi man bun fixie street art food truck. Occaecat pinterest pitchfork messenger bag, nihil VHS viral freegan banh mi. Viral roof party photo booth, culpa nulla mlkshk kickstarter deep v mumblecore tumblr. Kitsch intelligentsia occaecat sed ennui man braid, vice flannel excepteur fingerstache. Excepteur godard semiotics, cupidatat wolf kale chips chillwave. Brooklyn qui vero, williamsburg food truck retro portland
-         mumblecore slow-carb ennui truffaut kale chips occaecat ad. Art party distillery quinoa, everyday carry you probably haven't heard of them keytar hoodie selvage forage pop-up tempor cillum meditation veniam.
-      </h2>
    </div>
    <div id="team" class="container-fluid">
       <h1>Team</h1>
@@ -133,30 +138,30 @@ body {
       </div>
       <div class="row">
 
-            <div class="col-xs-6 col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/2.png">
-               <h3 class="text-center">Ben Stenberg</h3>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/3.png">
-               <h3 class="text-center">John Wilks</h3>
-            </div>
-            <div class="col-xs-6  col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/4.png">
-               <h3 class="text-center">Tyler Roelfsema</h3>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/1.png">
-               <h3 class="text-center">Billy Neuson</h3>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/6.png">
-               <h3 class="text-center">Alec Nichols</h3>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-2">
-               <img class = "center-block" style="padding:10px" height="200" src="images/5.png">
-               <h3 class="text-center">Kevin Wu</h3>
-            </div>
+         <div class="col-xs-6 col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/1.png">
+            <h3 class="text-center">Billy Neuson</h3>
+         </div>
+         <div class="col-xs-6 col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/6.png">
+            <h3 class="text-center">Alec Nichols</h3>
+         </div>
+         <div class="col-xs-6  col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/4.png">
+            <h3 class="text-center">Tyler Roelfsema</h3>
+         </div>
+         <div class="col-xs-6 col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/2.png">
+            <h3 class="text-center">Ben Stenberg</h3>
+         </div>
+         <div class="col-xs-6 col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/3.png">
+            <h3 class="text-center">John Wilks</h3>
+         </div>
+         <div class="col-xs-6 col-sm-4 col-md-2">
+            <img class = "center-block" style="padding:10px" height="200" src="images/5.png">
+            <h3 class="text-center">Kevin Wu</h3>
+         </div>
 
       </div>
    </div>

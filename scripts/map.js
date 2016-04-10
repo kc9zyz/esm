@@ -17,6 +17,9 @@ var osm = new L.TileLayer(osmUrl, {minZoom:0 , maxZoom: 19, attribution: osmAttr
 // start the map in michigan
 map.addLayer(osm);
 map.setView(new L.LatLng(42.9634,-85.890),10);
+L.marker([42.9637,-85.8894])
+   .addTo(map)
+   .bindPopup("Last Seen: 4/9/2016<br>Average Output: 3.7kW");
 
 var btnState = false;
 $(".leaflet-control-zoom").css("visibility", "hidden");
