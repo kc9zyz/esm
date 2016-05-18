@@ -65,7 +65,7 @@ var ctx = document.getElementById("historical-data-chart");
 
 updateHistoric = function() {
       $.ajax({
-         url: 'data/historical-data.json',
+         url: 'data/?asset=historical-data',
          success: function(result) {
 
             var historicalData = {
@@ -79,7 +79,7 @@ updateHistoric = function() {
                        pointStrokeColor: "#fff",
                        pointHighlightFill: "#fff",
                        pointHighlightStroke: "rgba(151,187,205,1)",
-                       data: result.data
+                       data: result.output
 
                    }
                ]
@@ -126,11 +126,11 @@ var waypoint = new Waypoint({
 
 })
 $("#historicalMonth").on('click', function(event) {
-   alert("MONTH");
+   $("#historicalDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
 });
 $("#historicalYear").on('click', function(event) {
-   alert("YEAR");
+   $("#historicalDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
 });
 $("#historicalAll").on('click', function(event) {
-   alert("ALL");
+   $("#historicalDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
 });

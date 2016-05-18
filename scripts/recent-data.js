@@ -69,7 +69,7 @@ getLastHourData = function() {
       this.firstTime = 1;
 
       $.ajax({
-         url: "data/last-hour-data.json",
+         url: "data/?asset=recent-data",
          success: function(result) {
             updateLastHour('waypoint', [result.times, result.output])
          }
@@ -77,13 +77,7 @@ getLastHourData = function() {
    }
 };
 getLastData = function() {
-   $.ajax({
-      url: "data/last-data.json",
-      success: function(result) {
-         updateLastHour('time', [result.time,result.output])
-      }
-   });
-};
+  };
 
 
 updateLastHour = function(caller, points) {
@@ -155,3 +149,12 @@ updateLastHour = function(caller, points) {
    }
 
 };
+$("#currentHour").on('click', function(event) {
+   $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+});
+$("#currentDay").on('click', function(event) {
+   $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+});
+$("#currentWeek").on('click', function(event) {
+   $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+});

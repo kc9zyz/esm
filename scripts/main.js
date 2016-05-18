@@ -13,7 +13,7 @@ function waitForElement(){
          .script("scripts/min/map.min.js")
          .script("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js")
          .script("scripts/min/current-data.min.js")
-         .script("scripts/min/last-hour-data.min.js")
+         .script("scripts/min/recent-data.min.js")
          .script("scripts/min/historical-data.min.js")
          .script("scripts/min/grad-date.min.js")
 

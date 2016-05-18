@@ -17,7 +17,7 @@ var opts = {
 
 getCurrentData = function(caller) {
    $.ajax({
-      url: "data/current-data.json",
+      url: "data/?asset=current-data",
       success: function(result){
          updateGauge(caller, result.output);
       },
