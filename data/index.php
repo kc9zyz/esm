@@ -1,7 +1,37 @@
 <?php
+include "../../../dbpass.php";
+
+$conn = mysqli_connect($servername, $username, $password, "neusonw");
+if (!$conn) {
+   die("Connection failed: " . mysqli_connect_error());
+}
 switch (filter_input(INPUT_GET,"asset",FILTER_SANITIZE_STRING)) {
 case "current-data":
-   $data = array('output' => 3904);
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      //Verify identity of requestor
+      $hash = $_POST["hash"];
+      $challenge = $_POST["challenge"];
+      //Check that the hashed 
+      if(hash("md5",$challenge.$pass) == $hash) {
+         $output = filter_input(INPUT_POST, 'output', FILTER_SANITIZE_NUMBER_INT);
+         $sql = "insert into esm (output) VALUES (".$output.");";
+         $result = mysqli_query($conn, $sql);
+      } else {
+         header("HTTP/1.1 401 Unauthorized");
+         echo "<h1>Invalid Resource</h1>";
+         break;
+      }
+   } 
+   $sql = "select * from esm ORDER BY id DESC LIMIT 1;";
+   $result = mysqli_query($conn, $sql);
+   if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)){
+         $data = array('output' => (int)$row["output"]);
+      }
+   }
+   else{
+      $data = array('output' => 200);
+   }
    header('Content-Type: application/json');
    echo json_encode($data);
    break;
