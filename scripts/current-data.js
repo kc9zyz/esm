@@ -44,7 +44,7 @@ updateGauge = function(caller, level) {
       updateGauge.firstTime = 0;
       //resizeGauge();
       this.gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-      this.gauge.maxValue = 7000; // set max gauge value
+      this.gauge.maxValue = 400; // set max gauge value
       this.gauge.animationSpeed = 13; // set animation speed (32 is default value)
       this.gauge.setTextField(document.getElementById("current-data-textfield"));
       this.gauge.set(0); // set actual value
@@ -54,7 +54,7 @@ updateGauge = function(caller, level) {
       this.gauge.set(level);
       setInterval( function() {
          getCurrentData('time');
-      }, 10000);
+      }, 2000);
 
    }
    else if (caller == 'time' && updateGauge.firstTime == 0) {
