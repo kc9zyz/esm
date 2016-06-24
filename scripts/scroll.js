@@ -26,7 +26,7 @@ function handleScroll(e)
    if (handleScroll.position < 581)
    {
       //Animate image
-      $('#modelImg').attr('src','./vr/0_'+Math.floor(handleScroll.position/20)+'.png');
+      $('#modelImg').attr('src','vr/0_'+Math.floor(handleScroll.position/20)+'.png');
       e.preventDefault();
       e.stopPropagation();
    }
@@ -73,7 +73,11 @@ $(document).ready(function (){
    else{
       handleScroll.active = false;
    }
-
-});
+    var list = [];
+   for( var i=0; i<30; i++) { 
+      $.ajax({url:'vr/0_'+i+'.png', success: function(result){
+      }});
+   }
+   });
 
 
