@@ -48,38 +48,49 @@ $(document).ready(function (){
 
 		// Prevent default anchor click behavior
 		event.preventDefault();
+      
 
 		// Store hash
 		var hash = this.hash;
-		if (hash != "") {
+		if (hash != ""){
+         if (hash == "#intro"){
+            $('#modelImg').attr('src','images/trailer/0.jpg');
+            handleScroll.active = true;
+            handleScroll.position = 0;
+         }
 			$(".navbar-collapse.in").collapse('hide');
 			// Using jQuery's animate() method to add smooth page scroll
 			// The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
 			$('html, body').animate({scrollTop: $(hash).offset().top}, 800, function(){
 
-				// Add hash (#) to URL when done scrolling (default click behavior)
-				window.location.hash = hash;
-			});
-		}
-	});
-	$('body').on({
-		'mousewheel':function(e){
-			handleScroll(e);
-		}
-	});
-	if($('#intro').position().top == 0){
-		handleScroll.active = true;
-		handleScroll.position = 0;
-	}
-	else{
-		handleScroll.active = false;
-		handleScroll.position = 0;
-	}
-	var list = [];
-	for( var i=0; i<50; i++) { 
-		$.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
-		}});
-	}
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+            if (hash != "#intro"){
+               handleScroll.active = false;
+               handleScroll.position = 0;
+               $('#modelImg').attr('src','images/trailer/0.jpg');
+            }
+         });
+      }
+   });
+   $('body').on({
+      'mousewheel':function(e){
+         handleScroll(e);
+      }
+   });
+   if($('#intro').position().top == 0){
+      handleScroll.active = true;
+      handleScroll.position = 0;
+   }
+   else{
+      handleScroll.active = false;
+      handleScroll.position = 0;
+   }
+   var list = [];
+   for( var i=0; i<50; i++) { 
+      $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
+      }});
+   }
 });
 
 
