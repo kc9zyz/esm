@@ -74,11 +74,6 @@ $(document).ready(function (){
       }
    });
    lastTouchLocation = null;
-   touchTimer = setTimeout(
-         function()
-         {
-            lastTouchLocation = null;
-         }, 10000);
    document.images['modelImg'].style.opacity = 1;
    if($('#intro').position().top == 0){
       handleScroll.active = true;
@@ -90,8 +85,7 @@ $(document).ready(function (){
       handleScroll.position = 0;
       handleScroll.neverActive = false;
    }
-   d = new Date();
-   lastScrollTime = d.getTime();
+   lastScrollTime = 0;
 
 
    $('#modelImg').on({
@@ -99,7 +93,7 @@ $(document).ready(function (){
          // Check to see if it has been at least 1/10th of a second since the last scroll
          d = new Date();
          delta = 0;
-         if(d.getTime() > lastScrollTime + 50){
+         if(d.getTime() > lastScrollTime + 45){
             lastScrollTime = d.getTime();
             delta = (e.originalEvent.deltaY/ Math.abs(e.originalEvent.deltaY))*20;
          }
@@ -107,7 +101,6 @@ $(document).ready(function (){
       }});
    $('body').on({
       'touchmove':function(e){
-         clearTimeout(lastTouchLocation);
          if (lastTouchLocation == null){
             lastTouchLocation = e.originalEvent.changedTouches[0].screenY; 
          }
@@ -115,20 +108,12 @@ $(document).ready(function (){
          sign = delta / Math.abs(delta);
 
          delta *= 4;
-         /*if(Math.abs(delta) > 10){
-           delta = 10;
-           delta *= sign;
+         if(Math.abs(delta) > 20){
+           delta = 0;
            }
-           */
-
          handleScroll(delta,e);
          lastTouchLocation = e.originalEvent.changedTouches[0].screenY;
-         touchTimer = setTimeout(
-            function()
-            {
-               lastTouchLocation = null;
-            }, 50);
-
+         
       }
    });
    // Check if client is on a cellular connection, do not animate to conserve 
