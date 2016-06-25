@@ -74,7 +74,6 @@ $(document).ready(function (){
       }
    });
    lastTouchLocation = null;
-   document.images['modelImg'].style.opacity = 1;
    if($('#intro').position().top == 0){
       handleScroll.active = true;
       handleScroll.position = 0;
@@ -88,7 +87,7 @@ $(document).ready(function (){
    lastScrollTime = 0;
 
 
-   $('#modelImg').on({
+   $('body').on({
       'mousewheel': function(e){
          // Check to see if it has been at least 1/10th of a second since the last scroll
          d = new Date();
@@ -98,8 +97,7 @@ $(document).ready(function (){
             delta = (e.originalEvent.deltaY/ Math.abs(e.originalEvent.deltaY))*20;
          }
          handleScroll(delta,e);
-      }});
-   $('body').on({
+      },
       'touchmove':function(e){
          if (lastTouchLocation == null){
             lastTouchLocation = e.originalEvent.changedTouches[0].screenY; 
@@ -126,9 +124,9 @@ $(document).ready(function (){
       }
       else
       {
-
          for( var i=0; i<numberOfScrollImages; i++) { 
             $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
+               document.images['modelImg'].style.opacity = 1;
             }});
          }
       }
@@ -137,6 +135,7 @@ $(document).ready(function (){
    {
       for( var i=0; i<numberOfScrollImages; i++) { 
          $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
+            document.images['modelImg'].style.opacity = 1;
          }});
       }
    }
