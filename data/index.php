@@ -20,6 +20,7 @@ case "current-data":
       $hash = $_POST["hash"];
       // Check that the hashed 
       if(hash("md5",$dataString.$pass) == $hash) {
+         // Set all the variables from 
          $panelOutput = (float)$sentData["panelOutput"];
          $shingleOutput = (float)$sentData["shingleOutput"];
          $timestamp = $sentData["timestamp"];
@@ -59,17 +60,19 @@ case "current-data":
          {
             header("HTTP/1.1 500 Internal Server Error");
             echo json_encode(array("error" => "DB error"));
-            break;
+            return;
          }
 
+         // Insert the data point into the esm table
          $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panel_angle) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panel_angle.");";
          $result = mysqli_query($conn, $sql);
       } else {
          header("HTTP/1.1 401 Unauthorized");
          echo json_encode(array("error" => "Unautharized"));
-         break;
+         return;
       }
    } 
+   // 
    $sql = "select * from esm ORDER BY timestamp DESC LIMIT 1;";
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
@@ -93,6 +96,7 @@ case "recent-data":
    $shingleOutputs=array();
 
    $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR);";
+   // Select the duration based on the parameter passed
    switch (filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING)) {
    case "hour":
       $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR) ORDER BY timestamp ASC; ";
@@ -103,7 +107,13 @@ case "recent-data":
    case "week":
       $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 WEEK) ORDER BY timestamp ASC;";
       break;
+
+   default:
+      header("HTTP/1.1 400 Bad Request");
+      echo json_encode(array("error" => "Param error"));
+      return;
    }
+   // Run the query
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
@@ -116,12 +126,11 @@ case "recent-data":
    $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs);
    header('Content-Type: application/json');
    echo json_encode($data);
-   //echo "{\"times\":[\"6:24 PM\",\"6:29 PM\",\"6:34 PM\",\"6:39 PM\",\"6:44 PM\",\"6:49 PM\",\"6:54 PM\",\"6:59 PM\",\"7:04 PM\",\"7:09 PM\",\"7:14 PM\",\"7:19 PM\"],\"output\":[3172,3276,3386,3014,3267,3402,3047,3337,3014,3394,3088,3252]}";
    break;
 
    default:
       header("HTTP/1.1 404 Not Found");
       echo "<h1>Invalid Resource</h1>";
-      break;
+      return;
 }
 ?>
