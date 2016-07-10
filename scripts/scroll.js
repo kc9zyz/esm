@@ -121,6 +121,7 @@ $(document).ready(function (){
       if(navigator.connection.type == 'cellular')
       { 
          handleScroll.neverActive = true;
+         document.images['modelImg'].style.opacity = 1;
       }
       else
       {

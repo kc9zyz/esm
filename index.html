@@ -67,9 +67,15 @@ body {
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-4">
                <div id="wattCol"></div>
-               <canvas  height="200" id="current-data-gauge"></canvas>
+               <canvas  height="200" id="current-data-panel"></canvas>
+               <div id="current-data-panel-textfield" style="font-size: 40px;"></div>
+               <div style="font-size: 22px;">Watts per square meter (panel)</div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+               <div id="wattCol"></div>
+               <canvas  height="200" id="current-data-shingle"></canvas>
                <div id="current-data-textfield" style="font-size: 40px;"></div>
-               <div style="font-size: 22px;">Watts of Solar Output</div>
+               <div style="font-size: 22px;">Watts per square meter (shingle)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3 class="text-center">Appliance Lineup</h3>
@@ -81,7 +87,7 @@ body {
 
 
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4" style="color:#000">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="color:#000">
                <button id="mapToggle" type="button" class="btn btn-primary" style="margin-bottom:5px; margin-top:5px">&nbsp;Enable Map Controls</button>
                <div id="map" style="position: relative"></div>
             </div>
@@ -89,7 +95,7 @@ body {
                <h2>Output over the last hour</h2>
                <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="currentDrop" data-toggle="dropdown" aria-haspopup="true">
-                     Select Range
+                     Select Range - Hour
                      <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" id="currentDrop" aria-labelledby="currentDrop">
