@@ -4,20 +4,21 @@
       <title>Educational Solar Module</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta property="og:image" content="http://egr.gvsu.edu/~esm/images/trailer/45.jpg">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
       <link rel="icon" type="image/png" href="http://www.gvsu.edu/favicon.ico">
       <style>
 body {
    position: relative; 
 }
-#intro {padding-top:50px;min-height:100vh;color: #000; background-color: LightSkyBlue;}
+#intro {padding-top:50px;min-height:100vh;color: #000; background-color: #A2D1ED;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;color: #fff; background-color: #00bcd4;}
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
 #map {pointer-events:none; height:300px;padding-bottom:10px;padding-left:50px;}
 #last-hour-data {height:300px;}
-      </style>
+     </style>
    </head>
    <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -50,7 +51,7 @@ body {
 
       <div id="intro" class="container-fluid">
          <h1 class="text-center"> Educational Solar Module</h1>
-         <img id="modelImg" class = "img-responsive center-block" style="padding:50px" src = "images/trailer.png">
+         <img id="modelImg" class = "img-responsive center-block" style="padding:50px;max-height:100vh;opacity: 0.4;" src = "images/trailer/0.jpg">
          <p class="text-center">
          </p>
          <p class="text-center">
@@ -66,9 +67,15 @@ body {
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-4">
                <div id="wattCol"></div>
-               <canvas  height="200" id="current-data-gauge"></canvas>
+               <canvas  height="200" id="current-data-panel"></canvas>
+               <div id="current-data-panel-textfield" style="font-size: 40px;"></div>
+               <div style="font-size: 22px;">Watts per square meter (panel)</div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4">
+               <div id="wattCol"></div>
+               <canvas  height="200" id="current-data-shingle"></canvas>
                <div id="current-data-textfield" style="font-size: 40px;"></div>
-               <div style="font-size: 22px;">Watts of Solar Output</div>
+               <div style="font-size: 22px;">Watts per square meter (shingle)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3 class="text-center">Appliance Lineup</h3>
@@ -80,7 +87,7 @@ body {
 
 
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4" style="color:#000">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="color:#000">
                <button id="mapToggle" type="button" class="btn btn-primary" style="margin-bottom:5px; margin-top:5px">&nbsp;Enable Map Controls</button>
                <div id="map" style="position: relative"></div>
             </div>
@@ -88,7 +95,7 @@ body {
                <h2>Output over the last hour</h2>
                <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="currentDrop" data-toggle="dropdown" aria-haspopup="true">
-                     Select Range
+                     Select Range - Hour
                      <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" id="currentDrop" aria-labelledby="currentDrop">

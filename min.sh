@@ -22,3 +22,4 @@ for f in *.css; do
       chmod 777 min/$short.css;
    fi
 done
+cd ..

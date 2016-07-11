@@ -19,7 +19,7 @@ getCurrentData = function(caller) {
    $.ajax({
       url: "data/?asset=current-data",
       success: function(result){
-         updateGauge(caller, result.output);
+         updateGauge(caller, result.panelOutput);
       },
       error : function(jq,err) {
          console.log(err);
@@ -28,12 +28,8 @@ getCurrentData = function(caller) {
    });
 };
 
-var target = document.getElementById('current-data-gauge'); // your canvas element
-resizeGauge = function() {
-   var container = document.getElementById('wattCol');
-   target.height = container.offsetHeight * 0.4;
-   target.width = container.offsetWidth;  
-}
+var targetPanel = document.getElementById('current-data-panel'); // your canvas element
+var targetShingle = document.getElementById('current-data-shingle'); // your canvas element
 updateGauge = function(caller, level) {
    // Check to see if the counter has been initialized
    if ( typeof updateGauge.firstTime == 'undefined' ) {
@@ -42,25 +38,24 @@ updateGauge = function(caller, level) {
    }
    if (caller == 'waypoint' && updateGauge.firstTime == 1) {
       updateGauge.firstTime = 0;
-      //resizeGauge();
-      this.gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-      this.gauge.maxValue = 400; // set max gauge value
-      this.gauge.animationSpeed = 13; // set animation speed (32 is default value)
-      this.gauge.setTextField(document.getElementById("current-data-textfield"));
-      this.gauge.set(0); // set actual value
+      this.gauge1 = new Gauge(targetPanel).setOptions(opts); // create sexy gauge!
+      this.gauge1.maxValue = 400; // set max gauge value
+      this.gauge1.animationSpeed = 13; // set animation speed (32 is default value)
+      this.gauge1.setTextField(document.getElementById("current-data-panel-textfield"));
+      this.gauge1.set(0); // set actual value
 
 
-      this.gauge.animationSpeed = 13;
-      this.gauge.set(level);
+      this.gauge1.animationSpeed = 13;
+      this.gauge1.set(level);
       setInterval( function() {
          getCurrentData('time');
       }, 2000);
 
    }
    else if (caller == 'time' && updateGauge.firstTime == 0) {
-      if(this.gauge.value != level){
-         this.gauge.animationSpeed = 1;
-         this.gauge.set(level);
+      if(this.gauge1.value != level){
+         this.gauge1.animationSpeed = 1;
+         this.gauge1.set(level);
       }
    }
 

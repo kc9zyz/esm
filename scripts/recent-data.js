@@ -1,4 +1,4 @@
-
+var duration = 'hour';
 var options = {
 
    ///Boolean - Whether grid lines are shown across the chart
@@ -64,97 +64,125 @@ var waypoint = new Waypoint({
 })
 
 getLastHourData = function() {
-   if ( typeof this.firstTime == 'undefined' ) {
-      // It has not... perform the initialization
-      this.firstTime = 1;
 
-      $.ajax({
-         url: "data/?asset=recent-data",
-         success: function(result) {
-            updateLastHour('waypoint', [result.times, result.output])
+   $.ajax({
+      url: 'data/?asset=recent-data&duration='+duration,
+      success: function(result) {
+         var times = [];
+         for (entry in result.times){
+            var time = new Date(result.times[entry]);
+            switch(duration){
+               case 'hour':
+                  times[entry] = time.toLocaleTimeString();
+                  break;
+               case 'day':
+                  times[entry] = time.toLocaleTimeString();
+                  break;
+               case 'week':
+                  times[entry] = time.toLocaleDateString()+' '+time.toLocaleTimeString();
+                  break;
+            }
          }
-      });
-   }
-};
-getLastData = function() {
-  };
+         var points = result.panelOutputs;
+         console.log(points);
+         var maxLength = 30;
+         if(points.length > maxLength){
+            var newPoints = [];
+            var newTimes = [];
 
-
-updateLastHour = function(caller, points) {
-   // Check to see if the counter has been initialized
-   if ( typeof this.firstTime == 'undefined' ) {
-      // It has not... perform the initialization
-      this.firstTime = 1;
-   }
-   if (caller == 'waypoint' && this.firstTime == 1) {
-      var lastHourData = {
-         labels:   points[0],
-         datasets: [
-         {
-            label: "Watts",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: points[1]
+            for(s in points){
+               if(s % Math.ceil(points.length/maxLength)){
+                  newPoints[Math.floor(s/Math.ceil(points.length/maxLength))].push(points[s])
+               }
+               else{
+                  newPoints[s/Math.ceil(points.length/maxLength)]= [points[s]];
+                  newTimes[s/Math.ceil(points.length/maxLength)]= times[s];
+               }
+            }
+            console.log(newPoints);
+            for(s in newPoints){
+               var total=0;
+               for(i in newPoints[s]){
+                  total+= parseInt(newPoints[s][i])
+               }
+               newPoints[s]=total/newPoints[s].length
+            }
+            points = newPoints;
+            times = newTimes;
 
          }
-         ]
-
-      };
-      Chart.types.Line.extend({
-         name: "LineAlt",
-         draw: function () {
-            Chart.types.Line.prototype.draw.apply(this, arguments);
-
-            var ctx = this.chart.ctx;
-            ctx.save();
-            // text alignment and color
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-            ctx.fillStyle = this.options.scaleFontColor;
-            // position
-            var x = this.scale.xScalePaddingLeft * 0.4;
-            var y = this.chart.height / 2;
-            // change origin
-            ctx.translate(x, y);
-            // rotate text
-            ctx.rotate(-90 * Math.PI / 180);
-            ctx.fillText("Watts", 0, 0);
-            ctx.restore();
-         }
-      });
-
-      // Get the context of the canvas element we want to select
-      var ctx = document.getElementById("last-hour-data-chart");
-      var container = document.getElementById('recentCol');
-      ctx.width = container.clientWidth;
-      this.lastHourChart = new Chart(ctx.getContext("2d")).LineAlt(lastHourData,options);
-      setInterval( function() {
-         getLastData();
-      }, 3000);
-      this.firstTime = 0;
-
-   }
-   else if (caller == 'time' && this.firstTime == 0) {
-      var currentPoints = this.lastHourChart.datasets[0].points;
-      if ( currentPoints[currentPoints.length - 1].label != points[0]) {
-         this.lastHourChart.removeData();
-         this.lastHourChart.addData([parseInt(points[1])], points[0]);
+         updateLastHour([times, points])
       }
+   });
+};
 
 
+updateLastHour = function(points) {
+   var lastHourData = {
+      labels:   points[0],
+      datasets: [
+      {
+         label: "Watts",
+         fillColor: "rgba(151,187,205,0.2)",
+         strokeColor: "rgba(151,187,205,1)",
+         pointColor: "rgba(151,187,205,1)",
+         pointStrokeColor: "#fff",
+         pointHighlightFill: "#fff",
+         pointHighlightStroke: "rgba(151,187,205,1)",
+         data: points[1]
+
+      }
+      ]
+
+   };
+   Chart.types.Line.extend({
+      name: "LineAlt",
+      draw: function () {
+         Chart.types.Line.prototype.draw.apply(this, arguments);
+
+         var ctx = this.chart.ctx;
+         ctx.save();
+         // text alignment and color
+         ctx.textAlign = "center";
+         ctx.textBaseline = "bottom";
+         ctx.fillStyle = this.options.scaleFontColor;
+         // position
+         var x = this.scale.xScalePaddingLeft * 0.4;
+         var y = this.chart.height / 2;
+         // change origin
+         ctx.translate(x, y);
+         // rotate text
+         ctx.rotate(-90 * Math.PI / 180);
+         ctx.fillText("Watts", 0, 0);
+         ctx.restore();
+      }
+   });
+
+   // Get the context of the canvas element we want to select
+   var ctx = document.getElementById("last-hour-data-chart");
+   var container = document.getElementById('recentCol');
+   ctx.width = container.clientWidth;
+   if(this.lastHourChart)
+   {
+      this.lastHourChart.destroy();
    }
+   this.lastHourChart = new Chart(ctx.getContext("2d")).LineAlt(lastHourData,options);
+   this.firstTime = 0;
+
 
 };
 $("#currentHour").on('click', function(event) {
    $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+   duration = 'hour';
+   getLastHourData();
 });
 $("#currentDay").on('click', function(event) {
    $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+   duration = 'day';
+   getLastHourData();
 });
 $("#currentWeek").on('click', function(event) {
    $("#currentDrop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+   duration = 'week';
+   getLastHourData();
 });
