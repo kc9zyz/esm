@@ -19,7 +19,7 @@ getCurrentData = function(caller) {
    $.ajax({
       url: "data/?asset=current-data",
       success: function(result){
-         updateGauge(caller, result.panelOutput);
+         updateGauge(caller, result.panelOutput, result.shingleOutput);
       },
       error : function(jq,err) {
          console.log(err);
@@ -30,7 +30,7 @@ getCurrentData = function(caller) {
 
 var targetPanel = document.getElementById('current-data-panel'); // your canvas element
 var targetShingle = document.getElementById('current-data-shingle'); // your canvas element
-updateGauge = function(caller, level) {
+updateGauge = function(caller, panel, shingle) {
    // Check to see if the counter has been initialized
    if ( typeof updateGauge.firstTime == 'undefined' ) {
       // It has not... perform the initialization
@@ -38,24 +38,38 @@ updateGauge = function(caller, level) {
    }
    if (caller == 'waypoint' && updateGauge.firstTime == 1) {
       updateGauge.firstTime = 0;
+
       this.gauge1 = new Gauge(targetPanel).setOptions(opts); // create sexy gauge!
+      this.gauge2 = new Gauge(targetShingle).setOptions(opts); // create sexy gauge!
+
       this.gauge1.maxValue = 400; // set max gauge value
+      this.gauge2.maxValue = 400; // set max gauge value
+
       this.gauge1.animationSpeed = 13; // set animation speed (32 is default value)
+      this.gauge2.animationSpeed = 13; // set animation speed (32 is default value)
+
       this.gauge1.setTextField(document.getElementById("current-data-panel-textfield"));
+      this.gauge2.setTextField(document.getElementById("current-data-shingle-textfield"));
+
       this.gauge1.set(0); // set actual value
+      this.gauge2.set(0); // set actual value
 
 
-      this.gauge1.animationSpeed = 13;
-      this.gauge1.set(level);
+      this.gauge1.set(panel);
+      this.gauge2.set(shingle);
       setInterval( function() {
          getCurrentData('time');
       }, 2000);
 
    }
    else if (caller == 'time' && updateGauge.firstTime == 0) {
-      if(this.gauge1.value != level){
+      if(this.gauge1.value != panel){
          this.gauge1.animationSpeed = 1;
-         this.gauge1.set(level);
+         this.gauge1.set(panel);
+      }
+      if(this.gauge2.value != shingle){
+         this.gauge2.animationSpeed = 1;
+         this.gauge2.set(shingle);
       }
    }
 

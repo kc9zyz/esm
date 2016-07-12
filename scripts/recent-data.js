@@ -50,6 +50,7 @@ var options = {
 
    //String - A legend template
    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+   multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
 
 
 
@@ -65,53 +66,34 @@ var waypoint = new Waypoint({
 
 getLastHourData = function() {
 
+   var maxLength = 30;
    $.ajax({
-      url: 'data/?asset=recent-data&duration='+duration,
+      url: 'data/?asset=historical-data&duration='+duration+'&points='+maxLength,
       success: function(result) {
          var times = [];
          for (entry in result.times){
             var time = new Date(result.times[entry]);
             switch(duration){
                case 'hour':
-                  times[entry] = time.toLocaleTimeString();
+                  a = time.toLocaleTimeString();
+                  b = a.split(':');
+                  times[entry] = b[0]+':'+b[1]+' '+b[2].split(' ')[1];
                   break;
                case 'day':
-                  times[entry] = time.toLocaleTimeString();
+                  a = time.toLocaleTimeString();
+                  b = a.split(':');
+                  times[entry] = b[0]+':'+b[1]+' '+b[2].split(' ')[1];
                   break;
                case 'week':
-                  times[entry] = time.toLocaleDateString()+' '+time.toLocaleTimeString();
+                  a = time.toLocaleTimeString();
+                  b = a.split(':');
+                  times[entry] = time.toLocaleDateString()+' ('+b[0]+' '+b[2].split(' ')[1]+')';
                   break;
             }
          }
          var points = result.panelOutputs;
          console.log(points);
-         var maxLength = 30;
-         if(points.length > maxLength){
-            var newPoints = [];
-            var newTimes = [];
-
-            for(s in points){
-               if(s % Math.ceil(points.length/maxLength)){
-                  newPoints[Math.floor(s/Math.ceil(points.length/maxLength))].push(points[s])
-               }
-               else{
-                  newPoints[s/Math.ceil(points.length/maxLength)]= [points[s]];
-                  newTimes[s/Math.ceil(points.length/maxLength)]= times[s];
-               }
-            }
-            console.log(newPoints);
-            for(s in newPoints){
-               var total=0;
-               for(i in newPoints[s]){
-                  total+= parseInt(newPoints[s][i])
-               }
-               newPoints[s]=total/newPoints[s].length
-            }
-            points = newPoints;
-            times = newTimes;
-
-         }
-         updateLastHour([times, points])
+         updateLastHour([times, result.panelOutputs, result.shingleOutputs])
       }
    });
 };
@@ -122,7 +104,7 @@ updateLastHour = function(points) {
       labels:   points[0],
       datasets: [
       {
-         label: "Watts",
+         label: "Panel",
          fillColor: "rgba(151,187,205,0.2)",
          strokeColor: "rgba(151,187,205,1)",
          pointColor: "rgba(151,187,205,1)",
@@ -130,8 +112,18 @@ updateLastHour = function(points) {
          pointHighlightFill: "#fff",
          pointHighlightStroke: "rgba(151,187,205,1)",
          data: points[1]
-
+      },
+      {
+         label: "Shingle",
+         fillColor: "rgba(151,187,205,0.2)",
+         strokeColor: "rgba(51,87,205,1)",
+         pointColor: "rgba(51,87,205,1)",
+         pointStrokeColor: "#fff",
+         pointHighlightFill: "#fff",
+         pointHighlightStroke: "rgba(151,187,205,1)",
+         data: points[2]
       }
+
       ]
 
    };

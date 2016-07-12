@@ -16,10 +16,25 @@ var osm = new L.TileLayer(osmUrl, {minZoom:0 , maxZoom: 19, attribution: osmAttr
 
 // start the map in michigan
 map.addLayer(osm);
-map.setView(new L.LatLng(42.9634,-85.890),10);
-L.marker([42.9637,-85.8894])
-   .addTo(map)
-   .bindPopup("Last Seen: 4/9/2016<br>Average Output: 3.7kW");
+$.ajax({
+   url: 'data/?asset=locations',
+   success: function(result) {
+      var locations = [];
+      var markers = [];
+      for (entry in result.locations){
+         var time = new Date(result.lastSeen[entry]);
+         var totalOutput = result.totalOutput[entry];
+
+         marker =  L.marker(result.locations[entry]);
+         marker.addTo(map);
+
+         marker.bindPopup("Last Seen: "+time.toLocaleDateString()+"<br>Total Output: "+totalOutput);
+         markers.push(marker);
+      }
+      var group = new L.featureGroup(markers);
+      map.fitBounds(group.getBounds().pad(0.25));
+   }
+});
 
 var btnState = false;
 $(".leaflet-control-zoom").css("visibility", "hidden");

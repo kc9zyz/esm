@@ -10,6 +10,7 @@ if (!$conn) {
 }
 switch (filter_input(INPUT_GET,"asset",FILTER_SANITIZE_STRING)) {
 case "current-data":
+{
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Get the json string from the post body
       $dataString = $_POST["json"];
@@ -86,16 +87,19 @@ case "current-data":
    header('Content-Type: application/json');
    echo json_encode($data);
    break;
+}
 case "historical-data":
-   header('Content-Type: application/json');
-   echo "{\"times\":[\"December 26th\",\"December 31st\",\"January 5th\",\"January 10th\",\"January 15th\",\"January 20th\",\"January 25th\",\"January 30th\",\"February 4th\",\"February 9th\",\"February 14th\",\"February 19th\",\"February 24th\",\"February 29th\",\"March 5th\",\"March 10th\",\"March 15th\",\"March 20th\",\"March 25th\",\"March 30th\"],\"output\":[3125,3042,3385,3017,3365,3104,3354,3208,3380,3434,3415,3304,3392,3312,3286,3126,3139,3282,3035,3071]}";
-   break;
-case "recent-data":
+{
    $times = array();
    $panelOutputs=array();
    $shingleOutputs=array();
 
    $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR);";
+   $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
+   if($numPoints)
+   {
+      $numPoints ++;
+   }
    // Select the duration based on the parameter passed
    switch (filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING)) {
    case "hour":
@@ -106,6 +110,15 @@ case "recent-data":
       break;
    case "week":
       $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 WEEK) ORDER BY timestamp ASC;";
+      break;
+   case "month":
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH) ORDER BY timestamp ASC;";
+      break;
+   case "year":
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) ORDER BY timestamp ASC;";
+      break;
+   case "all":
+      $sql = "select * from esm ORDER BY timestamp ASC;";
       break;
 
    default:
@@ -122,15 +135,87 @@ case "recent-data":
          array_push($shingleOutputs,$row["shingleOutput"]);
       }
    }
+   if($numPoints && count($times) > $numPoints)
+   {
+      $newTimes = array();
+      $newPanel = array();
+      $newShingle = array();
+      $length = count($times);
+
+      for($i=0;$i<$length;$i++)
+      {
+         if($i % (int)ceil($length/$numPoints))
+         {
+            array_push($newPanel[floor($i/ceil($length/$numPoints))],$panelOutputs[$i]);
+            array_push($newShingle[floor($i/ceil($length/$numPoints))],$shingleOutputs[$i]);
+         }
+         else
+         {
+            $newTimes[$i/ceil($length/$numPoints)] = $times[$i];
+            $newPanel[$i/ceil($length/$numPoints)] = array($panelOutputs[$i]);
+            $newShingle[$i/ceil($length/$numPoints)] = array($shingleOutputs[$i]);
+         }
+      }
+      $length = count($newPanel);
+      for($i=0;$i<$length;$i++)
+      {
+         $totalPanel = 0;
+         $totalShingle = 0;
+         for($j=0;$j<count($newPanel[$i]);$j++)
+         {
+            $totalPanel+=(float)$newPanel[$i][$j];
+            $totalShingle+=(float)$newShingle[$i][$j];
+         }
+         $newPanel[$i] = round($totalPanel/count($newPanel[$i]),1);
+         $newShingle[$i] = round($totalShingle/count($newShingle[$i]),1);
+      }
+      $panelOutputs = $newPanel;
+      $shingleOutputs = $newShingle;
+      $times = $newTimes;
+   }
 
    $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs);
    header('Content-Type: application/json');
    echo json_encode($data);
    break;
+}
+case "locations":
+{
+   $sql = "select * from locations;";
+   $locations = array();
+   $lastSeen = array();
+   $totalOutput = array();
 
-   default:
-      header("HTTP/1.1 404 Not Found");
-      echo "<h1>Invalid Resource</h1>";
-      return;
+   $result = mysqli_query($conn, $sql);
+   if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)){
+         array_push($locations,array($row["lat"],$row["lon"],$row["id"]));
+      }
+   }
+   for($i=0;$i<count($locations);$i++)
+   {
+      $sql = "select * from esm where location = ".$locations[$i][2]." order by timestamp desc limit 1;";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+         while($row = mysqli_fetch_assoc($result)){
+            array_push($lastSeen,$row["timestamp"]);
+            array_push($totalOutput,$row["panelOutput"]);
+         }
+      }
+
+
+   }
+   $data = array('locations' => $locations, 'lastSeen' => $lastSeen, 'totalOutput' => $totalOutput);
+   header('Content-Type: application/json');
+   echo json_encode($data);
+   break;
+}
+
+default:
+{
+   header("HTTP/1.1 404 Not Found");
+   echo "<h1>Invalid Resource</h1>";
+   return;
+}
 }
 ?>

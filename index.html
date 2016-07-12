@@ -16,7 +16,7 @@ body {
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;color: #fff; background-color: #00bcd4;}
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
-#map {pointer-events:none; height:300px;padding-bottom:10px;padding-left:50px;}
+#map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
 #last-hour-data {height:300px;}
      </style>
    </head>
@@ -74,7 +74,7 @@ body {
             <div class="col-xs-12 col-sm-12 col-md-4">
                <div id="wattCol"></div>
                <canvas  height="200" id="current-data-shingle"></canvas>
-               <div id="current-data-textfield" style="font-size: 40px;"></div>
+               <div id="current-data-shingle-textfield" style="font-size: 40px;"></div>
                <div style="font-size: 22px;">Watts per square meter (shingle)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
@@ -119,7 +119,7 @@ body {
             <p id="system-live-time" class="text-left"></p>
             <div class="dropdown">
                <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="historicalDrop" data-toggle="dropdown" aria-haspopup="true">
-                  Select Range
+                  Select Range - Month
                   <span class="caret"></span>
                </button>
                <ul class="dropdown-menu" id="historicalDrop"  aria-labelledby="historicalDrop">
