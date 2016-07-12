@@ -14,7 +14,7 @@ body {
 #intro {padding-top:50px;min-height:100vh;color: #000; background-color: #A2D1ED;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
-#education {padding-top:50px;color: #fff; background-color: #00bcd4;}
+#education {padding-top:50px;padding-bottom:70px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
 #map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
 #last-hour-data {height:300px;}
@@ -138,6 +138,18 @@ body {
 
    <div id="education" class="container-fluid">
       <h1>Education</h1>
+      <ul class="nav nav-tabs" role="tablist">
+         <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+         <li><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
+      </ul>
+      <div class="tab-content" style="height:90vh">
+         <div role="tabpanel" class="tab-pane active" id="general" >
+            <iframe id ="frame1" src="education/" style="width:100%;height:70vh" ></iframe>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="early">
+            <iframe src="education/#slide-2" style="width:100%;height:70vh" ></iframe>
+         </div>
+      </div>
    </div>
    <div id="team" class="container-fluid">
       <h1>Team</h1>
