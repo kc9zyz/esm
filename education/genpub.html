@@ -83,13 +83,13 @@
 
          <section class="slide">
             <h2>Question 1:</h2>
-            <h3>Fill in the blanks with the choices below:</h3>
+            <h3>Click or Tap the option that fills the blanks:</h3>
             <li><h4>On grid systems ______ while off grid systems ______.</h4></li>
             <ul>
-               <li><div class="quiz1" id="1a">a) store surplus electricity in batteries, sell surplus electricity</div></li>
-               <li><div class="quiz1" id="1b">b) burn surplus electricity, store surplus electricity in batteries</div></li>
-               <li><div class="quiz1" id="1c">c) sell surplus electricity, burn surplus electricty</div></li>
-               <li><div class="quiz1" id="1d">d) sell surplus electricity, store surplus electricity in batteries</div></li>
+               <li><div class="quiz1" id="g1a">a) <u class="g1">store surplus electricity in batteries, sell surplus electricity</u></div></li>
+               <li><div class="quiz1" id="g1b">b) <u class="g1">burn surplus electricity, store surplus electricity in batteries</u></div></li>
+               <li><div class="quiz1" id="g1c">c) <u class="g1">sell surplus electricity, burn surplus electricty</u></div></li>
+               <li><div class="quiz1" id="g1d">d) <u class="g1">sell surplus electricity, store surplus electricity in batteries</u></div></li>
                <ul>
                </section>
 
@@ -147,10 +147,10 @@
                   <h2>Question 2</h2>
                   <h3>Solar panels should not be used if ______.</h3>
                   <ul>
-                     <li><div class="quiz2" id="2a">a) the area is heavily shaded</div></li>
-                     <li><div class="quiz2" id="2b">b) the area can receive snow</div></li>
-                     <li><div class="quiz2" id="2c">c) the area receives heavy rainfall</div></li>
-                     <li><div class="quiz2" id="2d">d) there is strong wind blowing around the panels</div></li>
+                     <li><div class="quiz2" id="g2a">a) the area is heavily shaded</div></li>
+                     <li><div class="quiz2" id="g2b">b) the area can receive snow</div></li>
+                     <li><div class="quiz2" id="g2c">c) the area receives heavy rainfall</div></li>
+                     <li><div class="quiz2" id="g2d">d) there is strong wind blowing around the panels</div></li>
                   </ul>
                </section>
 
@@ -215,7 +215,7 @@
                <!-- deck.navigation snippet -->
                <div aria-role="navigation">
                   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-                  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+                  <a href="#" class="deck-next-link" title="Next" style="display:block;">&#8594;</a>
                </div>
 
                <!-- deck.status snippet -->
@@ -238,31 +238,6 @@
 
             <!-- Required JS files. -->
             <script src="jquery.min.js"></script>
-            <script>
-               $(document).ready(function(){
-               $("div.quiz1").click(function(){
-               if(this.id != "1d"){
-               $("#"+this.id).css("color","red");
-               $("#"+this.id).css("text-decoration","line-through");
-               }
-               $("#1d").css("color","green");
-               $("#1a").fadeTo(1500,0.4);
-               $("#1b").fadeTo(1500,0.4);
-               $("#1c").fadeTo(1500,0.4);
-               });
-               $("div.quiz2").click(function(){
-               if(this.id != "2a"){
-               $("#"+this.id).css("color","red");
-               $("#"+this.id).css("text-decoration","line-through");
-               }
-               $("#2a").css("color","green");
-               $("#2d").fadeTo(1500,0.4);
-               $("#2b").fadeTo(1500,0.4);
-               $("#2c").fadeTo(1500,0.4);
-               });
-
-               });
-            </script>
             <script src="core/deck.core.js"></script>
 
             <!-- Extension JS files. Add or remove as needed. -->
@@ -271,6 +246,7 @@
             <script src="extensions/status/deck.status.js"></script>
             <script src="extensions/navigation/deck.navigation.js"></script>
             <script src="extensions/scale/deck.scale.js"></script>
+            <script src="quiz.js"></script>
 
             <!-- Initialize the deck. You can put this in an external file if desired. -->
             <script>

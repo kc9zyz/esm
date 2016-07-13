@@ -60,8 +60,8 @@ $(document).ready(function (){
          }
          $(".navbar-collapse.in").collapse('hide');
          // Using jQuery's animate() method to add smooth page scroll
-         // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-         $('html, body').animate({scrollTop: $(hash).offset().top}, 800, function(){
+         // The optional number (1000) specifies the number of milliseconds it takes to scroll to the specified area
+         $('html, body').animate({scrollTop: $(hash).offset().top}, 1500, function(){
 
             // Add hash (#) to URL when done scrolling (default click behavior)
             window.location.hash = hash;
@@ -121,13 +121,13 @@ $(document).ready(function (){
       if(navigator.connection.type == 'cellular')
       { 
          handleScroll.neverActive = true;
-         document.images['modelImg'].style.opacity = 1;
+         $('.model').fadeTo(1000,1.0);
       }
       else
       {
          for( var i=0; i<numberOfScrollImages; i++) { 
             $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
-               document.images['modelImg'].style.opacity = 1;
+               $('.model').fadeTo(1000,1.0);
             }});
          }
       }
@@ -136,7 +136,7 @@ $(document).ready(function (){
    {
       for( var i=0; i<numberOfScrollImages; i++) { 
          $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
-            document.images['modelImg'].style.opacity = 1;
+            $('.model').fadeTo(1000,1.0);
          }});
       }
    }

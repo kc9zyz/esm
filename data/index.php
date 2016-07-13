@@ -74,7 +74,7 @@ case "current-data":
       }
    } 
    // 
-   $sql = "select * from esm ORDER BY timestamp DESC LIMIT 1;";
+   $sql = "select * from esm WHERE timestamp <= NOW() ORDER BY timestamp DESC LIMIT 1;";
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
@@ -93,6 +93,9 @@ case "historical-data":
    $times = array();
    $panelOutputs=array();
    $shingleOutputs=array();
+   $heading=array();
+   $panel_angle=array();
+   $locations=array();
 
    $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR);";
    $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
@@ -103,19 +106,19 @@ case "historical-data":
    // Select the duration based on the parameter passed
    switch (filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING)) {
    case "hour":
-      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR) ORDER BY timestamp ASC; ";
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR) AND timestamp <= NOW() ORDER BY timestamp ASC; ";
       break;
    case "day":
-      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY timestamp ASC;";
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 DAY) AND timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
    case "week":
-      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 WEEK) ORDER BY timestamp ASC;";
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 WEEK) AND timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
    case "month":
-      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH) ORDER BY timestamp ASC;";
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
    case "year":
-      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) ORDER BY timestamp ASC;";
+      $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
    case "all":
       $sql = "select * from esm ORDER BY timestamp ASC;";
@@ -126,6 +129,14 @@ case "historical-data":
       echo json_encode(array("error" => "Param error"));
       return;
    }
+
+   // Get the data type requested
+   $dataType = filter_input(INPUT_GET,"type",FILTER_SANITIZE_STRING);
+   if(!$dataType)
+   {
+      $dataType = "json";
+   }
+
    // Run the query
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
@@ -173,6 +184,7 @@ case "historical-data":
       $shingleOutputs = $newShingle;
       $times = $newTimes;
    }
+
 
    $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs);
    header('Content-Type: application/json');

@@ -18,7 +18,12 @@ body {
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
 #map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
 #last-hour-data {height:300px;}
-     </style>
+.nav-tabs > li a { 
+   solid #1A3E5E;
+   background-color:#2F71AB; 
+   color:#fff;
+}
+      </style>
    </head>
    <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -51,10 +56,15 @@ body {
 
       <div id="intro" class="container-fluid">
          <h1 class="text-center"> Educational Solar Module</h1>
-         <img id="modelImg" class = "img-responsive center-block" style="padding:50px;max-height:100vh;opacity: 0.4;" src = "images/trailer/0.jpg">
+         <img id="modelImg" class = "img-responsive center-block model" style="padding:50px;padding-bottom:0px;max-height:100vh;opacity:0.2;" src = "images/trailer/0.jpg">
          <p class="text-center">
+         Scroll to activate the trailer model!
          </p>
-         <p class="text-center">
+         <p class="text-justify" style="font-size:180%;padding:30px 10%">
+           Welcome to the homepage of the Educational Solar Module. 
+           <br>Here, you will find information about the performance of the trailer, 
+           the benefits and considerations surrounding solar energy, as well as the team, their sponsor, and other businesses that assested
+           in the completion of this project.
          </p>
          <p class="text-center">
          </p>
@@ -92,7 +102,7 @@ body {
                <div id="map" style="position: relative"></div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-               <h2>Output over the last hour</h2>
+               <h2>Recent Performance</h2>
                <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="currentDrop" data-toggle="dropdown" aria-haspopup="true">
                      Select Range - Hour
@@ -138,16 +148,19 @@ body {
 
    <div id="education" class="container-fluid">
       <h1>Education</h1>
+      <p>
+      Select an education module from the tabs below:
+      </p>
       <ul class="nav nav-tabs" role="tablist">
          <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
          <li><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
       </ul>
-      <div class="tab-content" style="height:90vh">
-         <div role="tabpanel" class="tab-pane active" id="general" >
-            <iframe id ="frame1" src="education/" style="width:100%;height:70vh" ></iframe>
+      <div class="tab-content" >
+         <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
+            <iframe id ="frame1" src="education/genpub.html" style="width:100%;height:100%" ></iframe>
          </div>
-         <div role="tabpanel" class="tab-pane" id="early">
-            <iframe src="education/#slide-2" style="width:100%;height:70vh" ></iframe>
+         <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
+            <iframe src="education/genpub.html#slide-2" style="width:100%;height:100%" ></iframe>
          </div>
       </div>
    </div>
