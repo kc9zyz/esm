@@ -199,60 +199,171 @@
 
 
 
-
                <section class="slide">
-                  <h2 >Quiz</h2>
-                  <h3>Select an option below:</h3>
-                  <li><div class="quiz">Dog</div></li>
-                  <li><div class="quiz">Cat</div></li>
-                  <li><div class="quiz">Bird</div></li>
+                  <h2>What Components Does a Solar Power System Need?</h2>
+                  <ul>
+                     <li><b>On Grid</b></li>
+                     <ul>
+                        <li>Solar collector (panels or shingles)</li>
+                        <li>Inverter (micro or string)</li>
+                        <li><b>Optional:</b></li>
+                        <li>Battery bank</li>
+                        <li>Charge controller</li>
+                     </ul>
+                     <li><b>Off Grid</b></li>
+                     <ul>
+                        <li>Solar collector</li>
+                        <li>Charge controller</li>
+                        <li>Battery bank</li>
+                        <li>Inverter</li>
+                     </ul>
+                  </ul>
                </section>
 
-               <!-- End slides. -->
+               <section class="slide">
+                  <h2>Solar Collection Methods</h2>
+                  <ul>
+                     <li><b>Panels</b></li>
+                     <ul>
+                        <li>Larger footprint</li>
+                        <li>Higher efficiency</li>
+                        <li>Lower cost</li>
+                        <li>Less aesthetic value</li>
+                     </ul>
+                     <li><b>Shingles</b></li>
+                     <ul>
+                        <li>Smaller footprint</li>
+                        <li>Lower efficiency</li>
+                        <li>Higher cost</li>
+                        <li>Higher aesthetic value</li>
+                     </ul>
+                  </ul>
+               </section>
 
-               <!-- Begin extension snippets. Add or remove as needed. -->
 
-               <!-- deck.navigation snippet -->
-               <div aria-role="navigation">
-                  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-                  <a href="#" class="deck-next-link" title="Next" style="display:block;">&#8594;</a>
+               <section class="slide">
+                  <h2>Inverters</h2>
+                  <ul>
+                     <li><b>String Inverter</b></li>
+                     <ul>
+                        <li>Accept from multiple collectors</li>
+                        <li>Generally used with panel groups</li>
+                        <li>Shading on a single panel will significantly drop the output of the whole panel group</li>
+                        <li>Lower cost</li>
+                     </ul>
+                     <li><b>Micro-Inverter</li>
+                        <ul>
+                           <li>Only accepts input from one collector</li>
+                           <li>Generally used with shingles</li>
+                           <li>Allows for partial shading of panels without significantly dropping overall output</li>
+                           <li>Higher cost</li>
+                        </ul>
+                     </ul>
+                  </section>
+
+
+                  <section class="slide">
+                     <h2>Question 5</h2>
+                     <ul>
+                        <li>(True/False) You need a battery bank for an on grid system.</li>
+                        <li>Answer: False</li>
+                     </ul>
+                  </section>
+
+                  <section class="slide">
+                     <h2>Question 6</h2>
+                     <h3>Microinverters work with ______.</h3>
+                     <ul>
+                        <li><div class="quiz">a) Only solar shingles</div></li>
+                        <li><div class="quiz">b) Only solar panels</div></li>
+                        <li><div class="quiz">c) Groups of panels or shingles</div></li>
+                        <li><div class="quiz">d) Individual panels or shingles</div></li>
+                        <li><div class="quiz">Answer: d)</div></li>
+                     </ul>
+                  </section> 
+
+
+                  <section class="slide">
+                     <h2>What to do with Excess Power?</h2>
+                     <ul>
+                        <li>Sell it Back</li>
+                        <ul>
+                           <li>Local electric companies are usually willing to buy back extra electricity in the form of credits applied to your monthly bill. This is called net metering.</li>
+                           <li>Contact your electricity provider to determine how to set this up</li>
+                        </ul>
+                        <li>Store it!</li>
+                        <ul>
+                           <li>Battery banks can be used to store electricity for later use.</li>
+                           <li>Be sure to properly size your battery bank.</li>
+                           <li>Include a charge controller to prevent overcharging the batteries.</li>
+                        </ul>
+                     </ul>
+                  </section>
+
+                  <section class="slide">
+                     <h2>Battery Sizing</h2>
+                     <h3>Properly sizing a battery bank will require the following metrics:</h3>
+                     <ul>
+                        <li>Average daily energy use.</li>
+                        <li>How man days you want the batteries to sustain the building.</li>
+                        <li>System voltage</li>
+                     </ul>
+                     <!-- insert math equations?? -->
+                  </section>
+                  <section class="slide">
+                     <h2>Expected System Lifetime</h2>
+                     <ul>
+                        <li>Solar panels are built to last over 25 years. As they age their output decreases down to as low as 80% of their original maximum output.</li>
+                        <li>Modern inverters are made to last between 20 and 25 years as well.</li>
+                        <li>Batteries are generally good between 10 and 15 years, however there is significant variance depending on the type of battery used.</li>
+                     </ul>
+                  </section>
+
+                  <!-- End slides. -->
+
+                  <!-- Begin extension snippets. Add or remove as needed. -->
+
+                  <!-- deck.navigation snippet -->
+                  <div aria-role="navigation">
+                     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+                     <a href="#" class="deck-next-link" title="Next" style="display:block;">&#8594;</a>
+                  </div>
+
+                  <!-- deck.status snippet -->
+                  <p class="deck-status" aria-role="status">
+                  <span class="deck-status-current"></span>
+                  /
+                  <span class="deck-status-total"></span>
+                  </p>
+
+                  <!-- deck.goto snippet -->
+                  <form action="." method="get" class="goto-form">
+                     <label for="goto-slide">Go to slide:</label>
+                     <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+                     <datalist id="goto-datalist"></datalist>
+                     <input type="submit" value="Go">
+                  </form>
+
+                  <!-- End extension snippets. -->
                </div>
 
-               <!-- deck.status snippet -->
-               <p class="deck-status" aria-role="status">
-               <span class="deck-status-current"></span>
-               /
-               <span class="deck-status-total"></span>
-               </p>
+               <!-- Required JS files. -->
+               <script src="jquery.min.js"></script>
+               <script src="core/deck.core.js"></script>
 
-               <!-- deck.goto snippet -->
-               <form action="." method="get" class="goto-form">
-                  <label for="goto-slide">Go to slide:</label>
-                  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-                  <datalist id="goto-datalist"></datalist>
-                  <input type="submit" value="Go">
-               </form>
+               <!-- Extension JS files. Add or remove as needed. -->
+               <script src="extensions/menu/deck.menu.js"></script>
+               <script src="extensions/goto/deck.goto.js"></script>
+               <script src="extensions/status/deck.status.js"></script>
+               <script src="extensions/navigation/deck.navigation.js"></script>
+               <script src="extensions/scale/deck.scale.js"></script>
+               <script src="quiz.js"></script>
 
-               <!-- End extension snippets. -->
-            </div>
-
-            <!-- Required JS files. -->
-            <script src="jquery.min.js"></script>
-            <script src="core/deck.core.js"></script>
-
-            <!-- Extension JS files. Add or remove as needed. -->
-            <script src="extensions/menu/deck.menu.js"></script>
-            <script src="extensions/goto/deck.goto.js"></script>
-            <script src="extensions/status/deck.status.js"></script>
-            <script src="extensions/navigation/deck.navigation.js"></script>
-            <script src="extensions/scale/deck.scale.js"></script>
-            <script src="quiz.js"></script>
-
-            <!-- Initialize the deck. You can put this in an external file if desired. -->
-            <script>
-               $(function() {
-               $.deck('.slide');
-               });
-            </script>
-         </body>
-      </html>
+               <!-- Initialize the deck. You can put this in an external file if desired. -->
+               <script>
+                  $(function() {
+                  $.deck('.slide');
+                  });
+               </script>
+            </body>
+         </html>
