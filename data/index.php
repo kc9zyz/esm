@@ -4,6 +4,10 @@ include "../../dbpass.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
+$panelSqm = 15.6;
+$shingleSqm = 15;
+$sampleTime = 5/60;
+
 $conn = mysqli_connect($servername, $username, $password, $db);
 if (!$conn) {
    die("Connection failed: " . mysqli_connect_error());
@@ -97,7 +101,6 @@ case "historical-data":
    $panel_angle=array();
    $locations=array();
 
-   $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR);";
    $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
    if($numPoints)
    {
@@ -206,15 +209,33 @@ case "locations":
    }
    for($i=0;$i<count($locations);$i++)
    {
-      $sql = "select * from esm where location = ".$locations[$i][2]." order by timestamp desc limit 1;";
+      $sql = "select * from esm where location = ".$locations[$i][2]." AND timestamp <= NOW() order by timestamp desc limit 1;";
       $result = mysqli_query($conn, $sql);
       if(mysqli_num_rows($result) > 0) {
          while($row = mysqli_fetch_assoc($result)){
             array_push($lastSeen,$row["timestamp"]);
-            array_push($totalOutput,$row["panelOutput"]);
          }
       }
-
+      $totalkWh = 0;
+      $sql = "select * from esm where location = ".$locations[$i][2]." AND timestamp <= NOW() order by timestamp desc;";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+         while($row = mysqli_fetch_assoc($result)){
+            $totalkWh+=(float)$row["panelOutput"] * $panelSqm;
+            $totalkWh+=(float)$row["shingleOutput"] * $shingleSqm;
+         }
+      }
+      $totalkWh *= ($sampleTime);
+      $totalkWh /= 1000;
+      if($totalkWh < 100)
+      {
+         $totalkWh = round($totalkWh,2);
+      }
+      else
+      {
+         $totalkWh = round($totalkWh,0);
+      }
+      array_push($totalOutput,$totalkWh);
 
    }
    $data = array('locations' => $locations, 'lastSeen' => $lastSeen, 'totalOutput' => $totalOutput);

@@ -66,7 +66,7 @@ var waypoint = new Waypoint({
 
 getLastHourData = function() {
 
-   var maxLength = 30;
+   var maxLength = Math.floor($(window).width()/50);
    $.ajax({
       url: 'data/?asset=historical-data&duration='+duration+'&points='+maxLength,
       success: function(result) {
