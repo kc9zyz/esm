@@ -13,17 +13,18 @@ body {
 }
 #intro {padding-top:50px;min-height:100vh;color: #000; background-color: #A2D1ED;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
-#historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
-#education {padding-top:50px;padding-bottom:70px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
-#team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
 #map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
 .leaflet-marker-pane {pointer-events:all;}
+#historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
+#education {padding-top:50px;padding-bottom:70px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
 #last-hour-data {height:300px;}
 .nav-tabs > li a { 
    solid #1A3E5E;
    background-color:#2F71AB; 
    color:#fff;
 }
+#team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
+#thanks {padding-top:50px;padding-bottom:100px;color: #000; background-color:#B8B8B8;}
       </style>
    </head>
    <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -49,6 +50,7 @@ body {
                      <li><a href="#historicalData">Historical Data</a></li>
                      <li><a href="#education">Education</a></li>
                      <li><a href="#team">Team</a></li>
+                     <li><a href="#thanks">Thanks</a></li>
                   </ul>
                </div>
             </div>
@@ -57,18 +59,19 @@ body {
 
       <div id="intro" class="container-fluid">
          <h1 class="text-center"> Educational Solar Module</h1>
-         <img id="modelImg" class = "img-responsive center-block model" style="padding:50px;padding-bottom:0px;max-height:100vh;opacity:0.2;" src = "images/trailer/0.jpg">
+         <img id="modelImg" class = "img-responsive center-block model" i
+         style="padding:50px;padding-bottom:0px;max-height:100vh;opacity:0.2;" src = "images/trailer/0.jpg">
          <p class="text-center">
          Scroll to activate the trailer model!
          </p>
          <p class="text-center" style="font-size:300%;padding:30px 10%">
-         WELCOME.
+         Welcome
          </p>
          <p class="text-justify" style="font-size:180%;padding:30px 10%">
-           Welcome to the homepage of the Educational Solar Module. 
-           <br>Here, you will find information about the performance of the trailer, 
-           the benefits and considerations surrounding solar energy, as well as the team, their sponsor, and other businesses that assested
-           in the completion of this project.
+         This site contains up-to-date information about the performance of the educational solar module.
+         <br>
+         <br>
+         Explore the site to learn more about solar energy, the team, and those that made this project possible.
          </p>
          <p class="text-center">
          </p>
@@ -83,13 +86,13 @@ body {
                <div id="wattCol"></div>
                <canvas  height="200" id="current-data-panel"></canvas>
                <div id="current-data-panel-textfield" style="font-size: 40px;"></div>
-               <div style="font-size: 22px;">Watts per square meter (panel)</div>
+               <div style="font-size: 22px;">Watts per square meter (panels)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4">
                <div id="wattCol"></div>
                <canvas  height="200" id="current-data-shingle"></canvas>
                <div id="current-data-shingle-textfield" style="font-size: 40px;"></div>
-               <div style="font-size: 22px;">Watts per square meter (shingle)</div>
+               <div style="font-size: 22px;">Watts per square meter (shingles)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3 class="text-center">Appliance Lineup</h3>
@@ -155,16 +158,18 @@ body {
       <p>
       Select an education module from the tabs below:
       </p>
-      <ul class="nav nav-tabs" role="tablist">
-         <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
-         <li><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
-      </ul>
-      <div class="tab-content" >
-         <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
-            <iframe id ="frame1" src="education/genpub.html" style="width:100%;height:100%" ></iframe>
-         </div>
-         <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
-            <iframe src="education/genpub.html#slide-2" style="width:100%;height:100%" ></iframe>
+      <div id="tabs-section">
+         <ul class="nav nav-tabs" role="tablist">
+            <li id="generalTab" role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+            <li id="earlyTab"><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
+         </ul>
+         <div class="tab-content" >
+            <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
+               <iframe id ="frame1" src="education/genpub.html" style="width:100%;height:100%" ></iframe>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
+               <iframe id="frame2" src="education/genpub.html#slide-2" style="width:100%;height:100%" ></iframe>
+            </div>
          </div>
       </div>
    </div>
@@ -177,29 +182,50 @@ body {
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/1.png">
             <h3 class="text-center">Billy Neuson</h3>
+            <h5 class="text-center">Computer Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/6.png">
             <h3 class="text-center">Alec Nichols</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6  col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/4.png">
             <h3 class="text-center">Tyler Roelfsema</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/2.png">
             <h3 class="text-center">Ben Stenberg</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/3.png">
             <h3 class="text-center">John Wilks</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/5.png">
             <h3 class="text-center">Kevin Wu</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
 
       </div>
+      <h3>Background</h3>
+      <p class="text-left" style="text-size:150%">
+      Consisting of a group of interdiciplinary engineering students, the Educational Solar Module 
+      team worked to create the trailer from January to August of 2016.
+      </p>
+
+   </div>
+   <div id="thanks" class="container-fluid">
+      <h1>Thanks</h1>
+      <h3>The team would like to thank the following institutions for their assistance with the project</h3>
+      <ul>
+         <li>Consumers Energy</li>
+         <li>CyboEnergy</li>
+         <li>Solar panel provider</li>
+      </ul>
    </div>
 
 </body>
