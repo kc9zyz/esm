@@ -1,0 +1,23 @@
+{
+  "name": "educational-solar-module",
+  "version": "1.0.0",
+  "description": "Contains minify dependencies for the esm project",
+  "main": "min.sh",
+  "scripts": {
+    "test": "./min.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kc9zyz/esm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kc9zyz/esm/issues"
+  },
+  "homepage": "https://github.com/kc9zyz/esm#readme",
+  "dependencies": {
+    "uglify-js": "^2.7.0",
+    "uglifycss": "0.0.20"
+  }
+}
