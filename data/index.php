@@ -97,8 +97,8 @@ case "historical-data":
    $times = array();
    $panelOutputs=array();
    $shingleOutputs=array();
-   $heading=array();
-   $panel_angle=array();
+   $headings=array();
+   $panel_angles=array();
    $locations=array();
 
    $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
@@ -106,8 +106,9 @@ case "historical-data":
    {
       $numPoints ++;
    }
+   $duration = filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING);
    // Select the duration based on the parameter passed
-   switch (filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING)) {
+   switch ($duration) {
    case "hour":
       $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR) AND timestamp <= NOW() ORDER BY timestamp ASC; ";
       break;
@@ -147,10 +148,15 @@ case "historical-data":
          array_push($times,$row["timestamp"]);
          array_push($panelOutputs,$row["panelOutput"]);
          array_push($shingleOutputs,$row["shingleOutput"]);
+         array_push($headings,$row["heading"]);
+         array_push($panel_angles,$row["panel_angle"]);
+         array_push($locations,$row["location"]);
       }
    }
+   // Check if the number of returned points is greater than the number requested
    if($numPoints && count($times) > $numPoints)
    {
+      // Consolidate the number of points by averaging
       $newTimes = array();
       $newPanel = array();
       $newShingle = array();
@@ -162,10 +168,11 @@ case "historical-data":
          {
             array_push($newPanel[floor($i/ceil($length/$numPoints))],$panelOutputs[$i]);
             array_push($newShingle[floor($i/ceil($length/$numPoints))],$shingleOutputs[$i]);
+            array_push($newTimes[floor($i/ceil($length/$numPoints))],$times[$i]);
          }
          else
          {
-            $newTimes[$i/ceil($length/$numPoints)] = $times[$i];
+            $newTimes[$i/ceil($length/$numPoints)] = array($times[$i]);
             $newPanel[$i/ceil($length/$numPoints)] = array($panelOutputs[$i]);
             $newShingle[$i/ceil($length/$numPoints)] = array($shingleOutputs[$i]);
          }
@@ -182,6 +189,7 @@ case "historical-data":
          }
          $newPanel[$i] = round($totalPanel/count($newPanel[$i]),1);
          $newShingle[$i] = round($totalShingle/count($newShingle[$i]),1);
+         $newTimes[$i] = $newTimes[$i][ceil(count($newTimes[$i])/2)];
       }
       $panelOutputs = $newPanel;
       $shingleOutputs = $newShingle;
@@ -190,8 +198,36 @@ case "historical-data":
 
 
    $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs);
-   header('Content-Type: application/json');
-   echo json_encode($data);
+   if($dataType == "json")
+   {
+      header('Content-Type: application/json');
+      echo json_encode($data);
+   }
+   else if($dataType == "csv")
+   {
+      // Get the lattitde and longitude values of each location
+      $sql = "select * from locations;";
+      $locationsData = array();
+
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+         while($row = mysqli_fetch_assoc($result)){
+            $locationsData[$row["id"]] = array($row["lat"],$row["lon"]);
+         }
+      }
+
+      header("Content-type: text/csv");
+      header("Content-Disposition: attachment; filename=ESM_data_".$duration.".csv");
+      header("Pragma: no-cache");
+      header("Expires: 0");
+
+      $f = fopen("php://output","w");
+      fputcsv($f,array("Times","Panel Output (w/m2)","Shingle Output (w/m2)","Heading","Panel Angle", "Lattitude","Longitude"),',');
+      for($i=0; $i<count($times);$i++)
+      {
+         fputcsv($f,array($times[$i],$panelOutputs[$i],$shingleOutputs[$i],$headings[$i],$panel_angles[$i],$locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]),',');
+      }
+   }
    break;
 }
 case "locations":
