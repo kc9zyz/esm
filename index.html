@@ -7,17 +7,20 @@
       <meta property="og:image" content="http://egr.gvsu.edu/~esm/images/trailer/45.jpg">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
       <link rel="icon" type="image/png" href="http://www.gvsu.edu/favicon.ico">
+      <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
       <style>
 body {
    position: relative; 
+   font-family: 'Oxygen', sans-serifi !important;
 }
 #intro {padding-top:50px;min-height:100vh;color: #000; background-color: #A2D1ED;}
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
+#map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
+.leaflet-marker-pane {pointer-events:all;}
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;padding-bottom:70px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
-#map {pointer-events:none; height:400px;padding-bottom:10px;padding-left:50px;}
-.leaflet-marker-pane {pointer-events:all;}
+#thanks {padding-top:50px;padding-bottom:100px;color: #000; background-color:#B8B8B8;}
 #last-hour-data {height:300px;}
 .nav-tabs > li a { 
    solid #1A3E5E;
@@ -49,6 +52,7 @@ body {
                      <li><a href="#historicalData">Historical Data</a></li>
                      <li><a href="#education">Education</a></li>
                      <li><a href="#team">Team</a></li>
+                     <li><a href="#thanks">Thanks</a></li>
                   </ul>
                </div>
             </div>
@@ -92,14 +96,12 @@ body {
                <div style="font-size: 22px;">Watts per square meter (shingle)</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
-               <h3 class="text-center">Appliance Lineup</h3>
+               <h3 class="text-center">What can we power?</h3>
                <p id="appH" class="text-center">Total Watts: </p>
                <p id="app1" class="text-center">Electric Fry Pan x 2 = 3000W </p>
                <p id="app2" class="text-center">Microwaves x 2 = 3000W</p>
                <p id="app3" class="text-center">Air Conditioners x 3 = 3030W</p>
                <p id="app4" class="text-center">Space Heaters x 2 = 2600W</p>
-
-
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#000">
                <button id="mapToggle" type="button" class="btn btn-primary" style="margin-bottom:5px; margin-top:5px">&nbsp;Enable Map Controls</button>
@@ -177,29 +179,50 @@ body {
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/1.png">
             <h3 class="text-center">Billy Neuson</h3>
+            <h5 class="text-center">Computer Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/6.png">
             <h3 class="text-center">Alec Nichols</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6  col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/4.png">
             <h3 class="text-center">Tyler Roelfsema</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/2.png">
             <h3 class="text-center">Ben Stenberg</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/3.png">
             <h3 class="text-center">John Wilks</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
          <div class="col-xs-6 col-sm-4 col-md-2">
             <img class = "center-block" style="padding:10px" height="200" src="images/5.png">
             <h3 class="text-center">Kevin Wu</h3>
+            <h5 class="text-center">Mechanical Engineer</h5>
          </div>
 
       </div>
+      <h3>Background</h3>     
+      <p class="text-left" style="text-size:150%">     
+      Consisting of an interdiciplinary group of engineering students, the Educational Solar Module       
+      team worked to create the trailer from January to August of 2016.      
+      </p>      
+
+   </div>     
+   <div id="thanks" class="container-fluid">     
+      <h1>Thanks</h1>      
+      <h3>The team would like to thank the following institutions for their assistance with the project</h3>     
+      <ul>      
+         <li>Consumers Energy</li>     
+         <li>CyboEnergy</li>    
+         <li>Solar panel provider</li>     
+      </ul>
    </div>
 
 </body>
