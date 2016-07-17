@@ -124,13 +124,13 @@ $(document).ready(function (){
       if(navigator.connection.type == 'cellular')
       { 
          handleScroll.neverActive = true;
-         $('.model').fadeTo(1000,1.0);
+         $('.model').fadeTo(2000,1.0);
       }
       else
       {
          for( var i=0; i<numberOfScrollImages; i++) { 
             $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
-               $('.model').fadeTo(1000,1.0);
+               $('.model').fadeTo(2000,1.0);
             }});
          }
       }
@@ -139,7 +139,7 @@ $(document).ready(function (){
    {
       for( var i=0; i<numberOfScrollImages; i++) { 
          $.ajax({url:'images/trailer/'+i+'.jpg', success: function(result){
-            $('.model').fadeTo(1000,1.0);
+            $('.model').fadeTo(2000,1.0);
          }});
       }
    }

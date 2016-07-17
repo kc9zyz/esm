@@ -66,7 +66,7 @@ var waypoint = new Waypoint({
 
 getLastHourData = function() {
 
-   var maxLength = Math.floor($(window).width()/50);
+   var maxLength = Math.floor($(window).width()/70);
    $.ajax({
       url: 'data/?asset=historical-data&duration='+duration+'&points='+maxLength,
       success: function(result) {
@@ -87,12 +87,13 @@ getLastHourData = function() {
                case 'week':
                   a = time.toLocaleTimeString();
                   b = a.split(':');
-                  times[entry] = time.toLocaleDateString()+' ('+b[0]+' '+b[2].split(' ')[1]+')';
+                  c = time.toLocaleDateString();
+                  d = c.split('/');
+                  times[entry] = d[0]+'/'+d[1]+', '+b[0]+' '+b[2].split(' ')[1];
                   break;
             }
          }
          var points = result.panelOutputs;
-         console.log(points);
          updateLastHour([times, result.panelOutputs, result.shingleOutputs])
       }
    });

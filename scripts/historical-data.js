@@ -66,7 +66,7 @@ var waypoint = new Waypoint({
 
 getHistoricalData = function() {
 
-   var maxLength = Math.floor($(window).width()/50);
+   var maxLength = Math.floor($(window).width()/70);
    $.ajax({
       url: 'data/?asset=historical-data&duration='+historicalDuration+'&points='+maxLength,
       success: function(result) {
@@ -86,7 +86,6 @@ getHistoricalData = function() {
             }
          }
          var points = result.panelOutputs;
-         console.log(points);
          updateHistorical([times, result.panelOutputs, result.shingleOutputs])
       }
    });

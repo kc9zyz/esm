@@ -15,7 +15,6 @@ function waitForElement(){
          .script("scripts/min/current-data.min.js")
          .script("scripts/min/recent-data.min.js")
          .script("scripts/min/historical-data.min.js")
-         .script("scripts/min/grad-date.min.js")
 
 
          //variable exists, do what you want
