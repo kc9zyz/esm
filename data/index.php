@@ -82,7 +82,7 @@ case "current-data":
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
-         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"]);
+         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"], 'timestamp' => $row["timestamp"]);
       }
    }
    else{
@@ -102,10 +102,6 @@ case "historical-data":
    $locations=array();
 
    $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
-   if($numPoints)
-   {
-      $numPoints ++;
-   }
    $duration = filter_input(INPUT_GET,"duration",FILTER_SANITIZE_STRING);
    // Select the duration based on the parameter passed
    switch ($duration) {
@@ -160,6 +156,9 @@ case "historical-data":
       $newTimes = array();
       $newPanel = array();
       $newShingle = array();
+      $newHeadings = array();
+      $newPanel_angles = array();
+      $newLocations = array();
       $length = count($times);
 
       for($i=0;$i<$length;$i++)
@@ -169,12 +168,18 @@ case "historical-data":
             array_push($newPanel[floor($i/ceil($length/$numPoints))],$panelOutputs[$i]);
             array_push($newShingle[floor($i/ceil($length/$numPoints))],$shingleOutputs[$i]);
             array_push($newTimes[floor($i/ceil($length/$numPoints))],$times[$i]);
+            array_push($newHeadings[floor($i/ceil($length/$numPoints))],$headings[$i]);
+            array_push($newPanel_angles[floor($i/ceil($length/$numPoints))],$panel_angles[$i]);
+            array_push($newLocations[floor($i/ceil($length/$numPoints))],$locations[$i]);
          }
          else
          {
             $newTimes[$i/ceil($length/$numPoints)] = array($times[$i]);
             $newPanel[$i/ceil($length/$numPoints)] = array($panelOutputs[$i]);
             $newShingle[$i/ceil($length/$numPoints)] = array($shingleOutputs[$i]);
+            $newHeadings[$i/ceil($length/$numPoints)] = array($headings[$i]);
+            $newPanel_angles[$i/ceil($length/$numPoints)] = array($panel_angles[$i]);
+            $newLocations[$i/ceil($length/$numPoints)] = array($locations[$i]);
          }
       }
       $length = count($newPanel);
@@ -190,32 +195,40 @@ case "historical-data":
          $newPanel[$i] = round($totalPanel/count($newPanel[$i]),1);
          $newShingle[$i] = round($totalShingle/count($newShingle[$i]),1);
          $newTimes[$i] = $newTimes[$i][ceil(count($newTimes[$i])/2)];
+         $newHeadings[$i] = $newHeadings[$i][ceil(count($newHeadings[$i])/2)];
+         $newPanel_angles[$i] = $newPanel_angles[$i][ceil(count($newPanel_angles[$i])/2)];
+         $newLocations[$i] = $newLocations[$i][ceil(count($newLocations[$i])/2)];
       }
       $panelOutputs = $newPanel;
       $shingleOutputs = $newShingle;
       $times = $newTimes;
+      $headings = $newHeadings;
+      $panel_angles = $newPanel_angles;
+      $locations = $newLocations;
+   }
+   // Get the lattitde and longitude values of each location
+   $sql = "select * from locations;";
+   $locationsData = array();
+
+   $result = mysqli_query($conn, $sql);
+   if(mysqli_num_rows($result) > 0) {
+      while($row = mysqli_fetch_assoc($result)){
+         $locationsData[$row["id"]] = array($row["lat"],$row["lon"]);
+      }
    }
 
-
-   $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs);
    if($dataType == "json")
    {
+      for($i=0;$i<count($locations);$i++)
+      {
+         $locations[$i] = array($locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]);
+      }
+      $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs, 'headings' => $headings, 'panel_angles' => $panel_angles, 'locations' => $locations);
       header('Content-Type: application/json');
       echo json_encode($data);
    }
    else if($dataType == "csv")
    {
-      // Get the lattitde and longitude values of each location
-      $sql = "select * from locations;";
-      $locationsData = array();
-
-      $result = mysqli_query($conn, $sql);
-      if(mysqli_num_rows($result) > 0) {
-         while($row = mysqli_fetch_assoc($result)){
-            $locationsData[$row["id"]] = array($row["lat"],$row["lon"]);
-         }
-      }
-
       header("Content-type: text/csv");
       header("Content-Disposition: attachment; filename=ESM_data_".$duration.".csv");
       header("Pragma: no-cache");
