@@ -152,24 +152,28 @@ body {
       </div>
    </div>
 
+
    <div id="education" class="container-fluid">
       <h1>Education</h1>
       <p>
       Select an education module from the tabs below:
       </p>
-      <ul class="nav nav-tabs" role="tablist">
-         <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
-         <li><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
-      </ul>
-      <div class="tab-content" >
-         <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
-            <iframe id ="frame1" src="education/genpub.html" style="width:100%;height:100%" ></iframe>
-         </div>
-         <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
-            <iframe src="education/genpub.html#slide-2" style="width:100%;height:100%" ></iframe>
+      <div id="tabs-section">
+         <ul class="nav nav-tabs" role="tablist">
+            <li id="generalTab" role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+            <li id="earlyTab"><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
+         </ul>
+         <div class="tab-content" >
+            <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
+               <iframe id ="frame1" src="education/genpub.html" style="width:100%;height:100%" ></iframe>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
+               <iframe id="frame2" src="education/genpub.html#slide-2" style="width:100%;height:100%" ></iframe>
+            </div>
          </div>
       </div>
    </div>
+
    <div id="team" class="container-fluid">
       <h1>Team</h1>
       <div id="graduation-date">
