@@ -1,4 +1,5 @@
 <?php
+// This include the database user and password, as well as the ssh key used as the data posting password
 include "../../../dbpass.php";
 include "../../dbpass.php";
 error_reporting(E_ALL);
@@ -23,7 +24,7 @@ case "current-data":
 
       // Verify identity of requestor
       $hash = $_POST["hash"];
-      // Check that the hashed 
+      // Check that the hash presented by the remote is correct 
       if(hash("md5",$dataString.$pass) == $hash) {
          // Set all the variables from 
          $panelOutput = (float)$sentData["panelOutput"];
@@ -32,7 +33,7 @@ case "current-data":
          $lat = (float)$sentData["lat"];
          $lon = (float)$sentData["lon"];
          $heading = (int)$sentData["heading"];
-         $panel_angle = (int)$sentData["panel_angle"];
+         $panelAngle = (int)$sentData["panelAngle"];
 
          $timeout = 5;
          $locID = 0;
@@ -69,7 +70,7 @@ case "current-data":
          }
 
          // Insert the data point into the esm table
-         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panel_angle) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panel_angle.");";
+         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panelAngle) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panelAngle.");";
          $result = mysqli_query($conn, $sql);
       } else {
          header("HTTP/1.1 401 Unauthorized");
@@ -98,7 +99,7 @@ case "historical-data":
    $panelOutputs=array();
    $shingleOutputs=array();
    $headings=array();
-   $panel_angles=array();
+   $panelAngles=array();
    $locations=array();
 
    $numPoints = filter_input(INPUT_GET,"points",FILTER_SANITIZE_NUMBER_INT);
@@ -145,7 +146,7 @@ case "historical-data":
          array_push($panelOutputs,$row["panelOutput"]);
          array_push($shingleOutputs,$row["shingleOutput"]);
          array_push($headings,$row["heading"]);
-         array_push($panel_angles,$row["panel_angle"]);
+         array_push($panelAngles,$row["panelAngle"]);
          array_push($locations,$row["location"]);
       }
    }
@@ -157,7 +158,7 @@ case "historical-data":
       $newPanel = array();
       $newShingle = array();
       $newHeadings = array();
-      $newPanel_angles = array();
+      $newpanelAngles = array();
       $newLocations = array();
       $length = count($times);
 
@@ -169,7 +170,7 @@ case "historical-data":
             array_push($newShingle[floor($i/ceil($length/$numPoints))],$shingleOutputs[$i]);
             array_push($newTimes[floor($i/ceil($length/$numPoints))],$times[$i]);
             array_push($newHeadings[floor($i/ceil($length/$numPoints))],$headings[$i]);
-            array_push($newPanel_angles[floor($i/ceil($length/$numPoints))],$panel_angles[$i]);
+            array_push($newpanelAngles[floor($i/ceil($length/$numPoints))],$panelAngles[$i]);
             array_push($newLocations[floor($i/ceil($length/$numPoints))],$locations[$i]);
          }
          else
@@ -178,7 +179,7 @@ case "historical-data":
             $newPanel[$i/ceil($length/$numPoints)] = array($panelOutputs[$i]);
             $newShingle[$i/ceil($length/$numPoints)] = array($shingleOutputs[$i]);
             $newHeadings[$i/ceil($length/$numPoints)] = array($headings[$i]);
-            $newPanel_angles[$i/ceil($length/$numPoints)] = array($panel_angles[$i]);
+            $newpanelAngles[$i/ceil($length/$numPoints)] = array($panelAngles[$i]);
             $newLocations[$i/ceil($length/$numPoints)] = array($locations[$i]);
          }
       }
@@ -194,16 +195,16 @@ case "historical-data":
          }
          $newPanel[$i] = round($totalPanel/count($newPanel[$i]),1);
          $newShingle[$i] = round($totalShingle/count($newShingle[$i]),1);
-         $newTimes[$i] = $newTimes[$i][ceil(count($newTimes[$i])/2)];
-         $newHeadings[$i] = $newHeadings[$i][ceil(count($newHeadings[$i])/2)];
-         $newPanel_angles[$i] = $newPanel_angles[$i][ceil(count($newPanel_angles[$i])/2)];
-         $newLocations[$i] = $newLocations[$i][ceil(count($newLocations[$i])/2)];
+         $newTimes[$i] = $newTimes[$i][floor(count($newTimes[$i])/2)];
+         $newHeadings[$i] = $newHeadings[$i][floor(count($newHeadings[$i])/2)];
+         $newpanelAngles[$i] = $newpanelAngles[$i][floor(count($newpanelAngles[$i])/2)];
+         $newLocations[$i] = $newLocations[$i][floor(count($newLocations[$i])/2)];
       }
       $panelOutputs = $newPanel;
       $shingleOutputs = $newShingle;
       $times = $newTimes;
       $headings = $newHeadings;
-      $panel_angles = $newPanel_angles;
+      $panelAngles = $newpanelAngles;
       $locations = $newLocations;
    }
    // Get the lattitde and longitude values of each location
@@ -223,7 +224,7 @@ case "historical-data":
       {
          $locations[$i] = array($locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]);
       }
-      $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs, 'headings' => $headings, 'panel_angles' => $panel_angles, 'locations' => $locations);
+      $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs, 'headings' => $headings, 'panelAngles' => $panelAngles, 'locations' => $locations);
       header('Content-Type: application/json');
       echo json_encode($data);
    }
@@ -238,7 +239,7 @@ case "historical-data":
       fputcsv($f,array("Times","Panel Output (w/m2)","Shingle Output (w/m2)","Heading","Panel Angle", "Lattitude","Longitude"),',');
       for($i=0; $i<count($times);$i++)
       {
-         fputcsv($f,array($times[$i],$panelOutputs[$i],$shingleOutputs[$i],$headings[$i],$panel_angles[$i],$locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]),',');
+         fputcsv($f,array($times[$i],$panelOutputs[$i],$shingleOutputs[$i],$headings[$i],$panelAngles[$i],$locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]),',');
       }
    }
    break;
@@ -285,6 +286,9 @@ case "locations":
          $totalkWh = round($totalkWh,0);
       }
       array_push($totalOutput,$totalkWh);
+
+      // Remove the MySQL ID from the result
+      array_pop($locations[$i]);
 
    }
    $data = array('locations' => $locations, 'lastSeen' => $lastSeen, 'totalOutput' => $totalOutput);
