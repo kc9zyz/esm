@@ -91,7 +91,7 @@ $(document).ready(function (){
 
 
    $('body').on({
-      'mousewheel': function(e){
+      'wheel': function(e){
          // Check to see if it has been at least 1/10th of a second since the last scroll
          d = new Date();
          delta = 0;
