@@ -35,6 +35,16 @@ case "current-data":
          $heading = (int)$sentData["heading"];
          $panelAngle = (int)$sentData["panelAngle"];
 
+         $sql = "select * from esm WHERE timestamp = ".$timestamp.";";
+         $result = mysqli_query($conn, $sql);
+         // Check if timestamp is already in database, reject as a replay attack
+         if(mysqli_num_rows($result) > 0) {
+            header("HTTP/1.1 401 Unauthorized");
+            echo json_encode(array("error" => "Unautharized", "cause" => "Timestamp Match"));
+            return;
+         }
+
+
          $timeout = 5;
          $locID = 0;
 
@@ -74,7 +84,7 @@ case "current-data":
          $result = mysqli_query($conn, $sql);
       } else {
          header("HTTP/1.1 401 Unauthorized");
-         echo json_encode(array("error" => "Unautharized"));
+         echo json_encode(array("error" => "Unautharized", "cause" => "Hash Mismatch"));
          return;
       }
    } 
