@@ -19,7 +19,7 @@ getCurrentData = function(caller) {
    $.ajax({
       url: "data/?asset=current-data",
       success: function(result){
-         updateGauge(caller, result.panelOutput, result.shingleOutput);
+         updateGauge(caller, result.panelOutput, result.shingleOutput, result.timestamp);
       },
       error : function(jq,err) {
          console.log(err);
@@ -30,7 +30,7 @@ getCurrentData = function(caller) {
 
 var targetPanel = document.getElementById('current-data-panel'); // your canvas element
 var targetShingle = document.getElementById('current-data-shingle'); // your canvas element
-updateGauge = function(caller, panel, shingle) {
+updateGauge = function(caller, panel, shingle, time) {
    // Check to see if the counter has been initialized
    if ( typeof updateGauge.firstTime == 'undefined' ) {
       // It has not... perform the initialization
@@ -72,6 +72,17 @@ updateGauge = function(caller, panel, shingle) {
          this.gauge2.set(shingle);
       }
    }
+   // Update system status display
+   a = new Date(time);
+   b = new Date();
+   // If the system hasn't updated in 20 minutes, consider it offline
+   if((b - a) > (20*60*1000)){
+      $('#system-live').html('System was last live '+a.toLocaleString());
+   }
+   else{
+      $('#system-live').html('System is live');
+   }
+
 
 };
 getCurrentData('waypoint');
