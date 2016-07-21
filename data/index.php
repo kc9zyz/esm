@@ -93,7 +93,8 @@ case "current-data":
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
-         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"], 'timestamp' => $row["timestamp"]);
+         $totalOutput = floor(((int)$row["panelOutput"] * $panelSqm) + ((int)$row["shingleOutput"] * $shingleSqm));
+         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],'totalOutput' => $totalOutput, 'timestamp' => $row["timestamp"]);
       }
    }
    else{
