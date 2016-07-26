@@ -28,5 +28,10 @@ $( document ).ready(function() {
       $("#Drop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
       duration = 'all';
    });
+   $("#Date").on('click', function(event) {
+      $("#Drop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
+      duration = 'all';
+   });
+
 });
 

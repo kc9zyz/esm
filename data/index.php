@@ -8,6 +8,7 @@ ini_set('display_errors', 'on');
 $panelSqm = 15.6;
 $shingleSqm = 15;
 $sampleTime = 5/60;
+$locationPrecision = 100; // Meters away from a location that is considered independent
 
 $conn = mysqli_connect($servername, $username, $password, $db);
 if (!$conn) {
@@ -51,8 +52,7 @@ case "current-data":
          while($timeout)
          {
             // Returns closest location that is x meters away
-            $x = 100;
-            $sql = "SELECT id, ( 6371000 * acos( cos( radians(".$lat.") ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(".$lon.") ) + sin( radians(".$lat.") ) * sin( radians( lat ) ) ) ) AS distance FROM locations HAVING distance < ".$x." ORDER BY distance LIMIT 1;";
+            $sql = "SELECT id, ( 6371000 * acos( cos( radians(".$lat.") ) * cos( radians( lat ) ) * cos( radians( lon ) - radians(".$lon.") ) + sin( radians(".$lat.") ) * sin( radians( lat ) ) ) ) AS distance FROM locations HAVING distance < ".$locationPrecision." ORDER BY distance LIMIT 1;";
             $result = mysqli_query($conn, $sql);
             // Check to see if any locations were found
             if(mysqli_num_rows($result) > 0) {
@@ -93,8 +93,9 @@ case "current-data":
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
+         // Calculate the total output based on system parameters
          $totalOutput = floor(((int)$row["panelOutput"] * $panelSqm) + ((int)$row["shingleOutput"] * $shingleSqm));
-         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],'totalOutput' => $totalOutput, 'timestamp' => $row["timestamp"]);
+         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],'totalOutput' => $totalOutput, 'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"]);
       }
    }
    else{
@@ -173,8 +174,10 @@ case "historical-data":
       $newLocations = array();
       $length = count($times);
 
+      // Loop through each data point
       for($i=0;$i<$length;$i++)
       {
+         // if the data point is not first in a given bin, add it to the bin list
          if($i % (int)ceil($length/$numPoints))
          {
             array_push($newPanel[floor($i/ceil($length/$numPoints))],$panelOutputs[$i]);
@@ -184,6 +187,7 @@ case "historical-data":
             array_push($newpanelAngles[floor($i/ceil($length/$numPoints))],$panelAngles[$i]);
             array_push($newLocations[floor($i/ceil($length/$numPoints))],$locations[$i]);
          }
+         // Otherwise, create a new bin and add the data to it
          else
          {
             $newTimes[$i/ceil($length/$numPoints)] = array($times[$i]);
@@ -194,16 +198,21 @@ case "historical-data":
             $newLocations[$i/ceil($length/$numPoints)] = array($locations[$i]);
          }
       }
+      // Retrieve the length of the new list
       $length = count($newPanel);
+      // Loop through the array-of-arrays and combine bin data
       for($i=0;$i<$length;$i++)
       {
          $totalPanel = 0;
          $totalShingle = 0;
+
+         // Perform average on panel and shingle data
          for($j=0;$j<count($newPanel[$i]);$j++)
          {
             $totalPanel+=(float)$newPanel[$i][$j];
             $totalShingle+=(float)$newShingle[$i][$j];
          }
+         // Take the midpoint for all other data
          $newPanel[$i] = round($totalPanel/count($newPanel[$i]),1);
          $newShingle[$i] = round($totalShingle/count($newShingle[$i]),1);
          $newTimes[$i] = $newTimes[$i][floor(count($newTimes[$i])/2)];
@@ -211,6 +220,7 @@ case "historical-data":
          $newpanelAngles[$i] = $newpanelAngles[$i][floor(count($newpanelAngles[$i])/2)];
          $newLocations[$i] = $newLocations[$i][floor(count($newLocations[$i])/2)];
       }
+      // Move binned data into the original variables for responding
       $panelOutputs = $newPanel;
       $shingleOutputs = $newShingle;
       $times = $newTimes;
@@ -225,6 +235,7 @@ case "historical-data":
    $result = mysqli_query($conn, $sql);
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
+         // Add raw location to list corresponding to location ID
          $locationsData[$row["id"]] = array($row["lat"],$row["lon"]);
       }
    }

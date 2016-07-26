@@ -35,39 +35,29 @@ body {
                <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
                      <li><a href="index.html">Go Back</a></li>
+                  </div>
                </div>
             </div>
+         </nav> 
+         <div id="intro" class="container-fluid">
+            <h1>ESM Data Download Page</h1>
+            <p>Complete the fields below to download a CSV of the available performance data.</p>
+            <div class="dropdown">
+               <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="Drop" data-toggle="dropdown" aria-haspopup="true">
+                  Select Range - Hour
+                  <span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu" id="currentDrop" aria-labelledby="currentDrop">
+                  <li style="color:#000" ><a id="Hour">Hour</a></li>
+                  <li style="color:#000" ><a id="Day">Day</a></li>
+                  <li style="color:#000" ><a id="Week">Week</a></li>
+                  <li style="color:#000" ><a id="Month">Month</a></li>
+                  <li style="color:#000" ><a id="Year">Year</a></li>
+                  <li style="color:#000" ><a id="All">All</a></li>
+                  <li style="color:#000" ><a id="Date">Date Range</a></li>
+               </ul>
+            </div>
          </div>
-      </nav> 
-      <div id="intro" class="container-fluid">
-         <h1>ESM Data Download Page</h1>
-         <p>Complete the fields below to download a CSV of the available performance data.</p>
-         <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="Drop" data-toggle="dropdown" aria-haspopup="true">
-               Select Range - Hour
-               <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" id="currentDrop" aria-labelledby="currentDrop">
-               <li style="color:#000" ><a id="Hour">Hour</a></li>
-               <li style="color:#000" ><a id="Day">Day</a></li>
-               <li style="color:#000" ><a id="Week">Week</a></li>
-               <li style="color:#000" ><a id="Month">Month</a></li>
-               <li style="color:#000" ><a id="Year">Year</a></li>
-               <li style="color:#000" ><a id="All">All</a></li>
-            </ul>
-         </div>
-         <div style="margin:10px 0px;">
-            <p style="max-width:500px;">
-            Input the number of datapoints to return (0/empty sends all available)
-            <br>
-            This does not simply limit the number of points returned, but averages 
-            the output data into bins to form the number of points requested.
-            This will cause a loss in resolution of the output data, and all other 
-            columns will assume the value at the midpoint of the bin.
-            </p>
-
-         <input type="number" id="numPoints"/>
-      </div>
 
          <a type="button" class="btn btn-primary" id="download">Download</a>
       </div>
