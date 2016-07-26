@@ -12,9 +12,10 @@
 body {
    position: relative; 
    font-family: 'Oxygen', sans-serifi !important;
+   background-color: #00bcd4;
 }
 #currentDataLive {padding-top:50px;color: #fff; background-color: #009688;}
-#education {padding-top:10px;padding-bottom:10px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
+#education {padding-top:10px;padding-bottom:10px;color: #fff; background-color: #00bcd4;}
 .nav-tabs > li a { 
    solid #1A3E5E;
    background-color:#2F71AB; 
@@ -39,14 +40,14 @@ body {
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                <ul class="nav navbar-nav">
-                  <li><a href="#">Educational Solar Module</a></li>
+                  <li class="active"><a href="#"><strong style="font-size:150%">Educational Solar Module<strong></a></li>
                </ul>
             </div>
          </div>
       </nav>    
 
       <div id="currentDataLive" class="container-fluid">
-         <h1>Live Data</h1>
+         <h1>Live Data - Visit <strong>http://egr.gvsu.edu/~esm</strong> for more information</h1>
          <div id="system-live" style="visibility:hidden">
          </div>
          <div class="row">
@@ -67,13 +68,11 @@ body {
                </p>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
-               <h3 class="text-center">What can we power?</h3>
-               <p id="appH" class="text-center">Total Watts: <strong id="totalWatts"></strong> </p>
-               <!-- <p id="app1" class="text-center">Electric Fry Pan x 2 = 3000W </p>
-               <p id="app2" class="text-center">Microwaves x 2 = 3000W</p>
-               <p id="app3" class="text-center">Air Conditioners x 3 = 3030W</p>
-               <p id="app4" class="text-center">Space Heaters x 2 = 2600W</p>
-               -->
+               <h3 class="text-center">More Information</h3>
+               <p class="text-center">Total Power: <strong id="totalWatts"></strong> </p>
+               <p class="text-center">This will power <strong id="houses"></strong> houses</p>
+               <p class="text-center">Panel Angle: <strong id="panelAngle"></strong> </p>
+               <p class="text-center">Trailer Heading: <strong id="heading"></strong> </p>
             </div>
          </div>
       </div>
@@ -86,10 +85,10 @@ body {
             <li id="earlyTab"><a href="#early" aria-controls="early" role="tab" data-toggle="tab">Early Adopters</a></li>
          </ul>
          <div class="tab-content" >
-            <div role="tabpanel" class="tab-pane active" id="general" style="height:700px;max-height:60vh;" >
+            <div role="tabpanel" class="tab-pane active" id="general" style="height:690px;max-height:57vh;" >
                <iframe id ="generalFrame" src="education/genpub.html?demo=true" style="width:100%;height:100%" ></iframe>
             </div>
-            <div role="tabpanel" class="tab-pane" id="early" style="height:700px;max-height:60vh;">
+            <div role="tabpanel" class="tab-pane" id="early" style="height:690px;max-height:57vh;">
                <iframe id="earlyFrame" src="education/genpub.html?demo=true" style="width:100%;height:100%" ></iframe>
             </div>
          </div>

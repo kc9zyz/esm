@@ -19,7 +19,8 @@ getCurrentData = function(caller) {
    $.ajax({
       url: "data/?asset=current-data",
       success: function(result){
-         updateGauge(caller, result.panelOutput, result.shingleOutput, result.totalOutput, result.timestamp);
+         var more = [result.totalOutput,result.panelAngle,result.heading];
+         updateGauge(caller, result.panelOutput, result.shingleOutput, more, result.timestamp);
       },
       error : function(jq,err) {
          console.log(err);
@@ -30,7 +31,7 @@ getCurrentData = function(caller) {
 
 var targetPanel = document.getElementById('current-data-panel'); // your canvas element
 var targetShingle = document.getElementById('current-data-shingle'); // your canvas element
-updateGauge = function(caller, panel, shingle, total, time) {
+updateGauge = function(caller, panel, shingle, more, time) {
    // Check to see if the counter has been initialized
    if ( typeof updateGauge.firstTime == 'undefined' ) {
       // It has not... perform the initialization
@@ -73,7 +74,9 @@ updateGauge = function(caller, panel, shingle, total, time) {
       }
    }
    // Update the total Watts area
-   $("#totalWatts").html(''+total+'W');
+   $("#totalWatts").html(''+more[0]+' W');
+   $("#panelAngle").html(''+more[1]+' °');
+   $("#heading").html(''+more[2]+' °');
    // Update system status display
    a = new Date(time);
    b = new Date();
