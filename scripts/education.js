@@ -10,10 +10,12 @@ setInterval(function(){
             hold1 = true;
             setTimeout(function(){
                // Trigger a transition to the early adopters module
-               $('#earlyFrame').attr('src', $('#earlyFrame').attr('src'));
                $('#earlyTab').children().trigger('click');
                hold1 = false;
             },5000);
+            setTimeout(function(){
+               $('#earlyFrame').attr('src', $('#earlyFrame').attr('src'));
+            },4000);
          }
       }
    }
@@ -25,10 +27,12 @@ setInterval(function(){
             hold2 = true;
             setTimeout(function(){
                // Trigger a transition to the general public module
-               $('#generalFrame').attr('src', $('#generalFrame').attr('src'));
                $('#generalTab').children().trigger('click');
                hold2 = false;
             },5000);
+            setTimeout(function(){
+               $('#generalFrame').attr('src', $('#generalFrame').attr('src'));
+            },4000);
          }
       }
    }

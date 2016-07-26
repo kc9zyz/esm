@@ -97,12 +97,17 @@ $(document).ready(function(){
 
    // Check if the module is in demo mode
    if(getUrlVar('demo') && getUrlVar('demo') == 'true'){
+
+      // Remove the arrow keys
+      $('#nextButton').css('visibility','hidden');
+      $('#prevButton').css('visibility','hidden');
+
       // Trigger all answers to show
       $('.answer').trigger('click');
       // Schedule slide transition
       setInterval(function(){
          $.deck('next');
-      },1000);
+      },18000);
    }
 
 });
