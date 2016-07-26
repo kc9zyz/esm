@@ -2,7 +2,7 @@ var duration = 'hour';
 $( document ).ready(function() {
    $('#download').on('click',function(event){
       var num = $('#numPoints').val();
-      window.location = 'data/?asset=historical-data&type=csv&duration='+duration+'&points='+num;
+      window.location = 'data/?asset=historical-data&type=csv&duration='+duration;
    });
    $("#Hour").on('click', function(event) {
       $("#Drop").html("Select Range - "+$(this).text()+' <span class="caret"></span>');
