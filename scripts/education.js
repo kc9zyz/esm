@@ -37,3 +37,10 @@ setInterval(function(){
       }
    }
 },1000);
+
+setInterval(function(){
+   $('#cover').fadeTo(2000,1);
+   setTimeout(function(){
+      $('#cover').fadeTo(2000,0);
+   },3000);
+},300000);
