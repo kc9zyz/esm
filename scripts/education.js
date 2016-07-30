@@ -38,9 +38,35 @@ setInterval(function(){
    }
 },1000);
 
+// Perform a screen blank for burn-in reuction
 setInterval(function(){
    $('#cover').fadeTo(2000,1);
    setTimeout(function(){
       $('#cover').fadeTo(2000,0);
    },3000);
-},300000);
+},900000);
+
+setInterval(function(){
+
+   $.ajax({
+      url: "http://localhost:8000/",
+      success: function(result){
+         $('#warning').html(result.warning);
+
+         var text = '';
+         text +=' Panel Temperature: '+result.panelTemp+'°F';
+         text += ' -- Electrical Box Temperature: '+result.boxTemp+'°F';
+         text += ' -- Battery: '+result.battery+'%';
+         text += ' -- Wind Speed: '+result.windspeed+' MPH';
+         if(result.message != ''){
+            text += ' -- Message: '+result.message;
+         }
+         $('#messageText').html(text);
+      },
+      error : function(jq,err) {
+         console.log(err);
+      }
+
+   });
+
+},2000);

@@ -102,6 +102,9 @@ $(document).ready(function(){
       $('#nextButton').css('visibility','hidden');
       $('#prevButton').css('visibility','hidden');
 
+      // Remove click and tap instructions
+      $('.instructions').remove()
+
       // Trigger all answers to show
       $('.answer').trigger('click');
       // Schedule slide transition
