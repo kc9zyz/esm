@@ -1,4 +1,13 @@
+DROP DATABASE IF EXISTS `esm`;
 CREATE database esm;
+USE esm;
+DROP TABLE IF EXISTS `locations`;
+CREATE TABLE `locations` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lon` float DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 DROP TABLE IF EXISTS `esm`;
 CREATE TABLE `esm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -12,10 +21,3 @@ CREATE TABLE `esm` (
   KEY `location` (`location`),
   CONSTRAINT `esm_ibfk_1` FOREIGN KEY (`location`) REFERENCES `locations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22969 DEFAULT CHARSET=latin1;
-DROP TABLE IF EXISTS `locations`;
-CREATE TABLE `locations` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `lat` float DEFAULT NULL,
-  `lon` float DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;

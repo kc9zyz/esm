@@ -56,8 +56,11 @@ updateGauge = function(caller, panel, shingle, more, time) {
       this.gauge2.set(0); // set actual value
 
 
-      this.gauge1.set(panel);
-      this.gauge2.set(shingle);
+      // Make sure that valid data is available, gaugejs can't handle NaN
+      if(!isNaN(panel) && !isNaN(shingle)){
+         this.gauge1.set(panel);
+         this.gauge2.set(shingle);
+      }
       setInterval( function() {
          getCurrentData('time');
       }, 2000);
