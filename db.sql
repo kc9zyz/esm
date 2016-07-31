@@ -1,3 +1,4 @@
+CREATE database esm;
 DROP TABLE IF EXISTS `esm`;
 CREATE TABLE `esm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
