@@ -58,6 +58,8 @@ setInterval(function(){
          text += ' -- Electrical Box Temperature: '+result.boxTemp+'°F';
          text += ' -- Battery: '+result.battery+'%';
          text += ' -- Wind Speed: '+result.windspeed+' MPH';
+         text += ' -- Heading: '+result.heading+'°';
+         text += ' -- Panel Angle: '+result.panelAngle+'°';
          if(result.message != ''){
             text += ' -- Message: '+result.message;
          }
