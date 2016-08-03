@@ -95,6 +95,12 @@ $(document).ready(function(){
    $("#g6a").fadeTo(1500,0.4);
    });
 
+   $(".equiz1").click(function(){
+      $(".equiz1").unbind("click");
+      $("#eA").css('visibility','visible');
+      $('.equiz1').css("visibility","hidden");
+   });
+
    // Check if the module is in demo mode
    if(getUrlVar('demo') && getUrlVar('demo') == 'true'){
 
@@ -110,7 +116,7 @@ $(document).ready(function(){
       // Schedule slide transition
       setInterval(function(){
          $.deck('next');
-      },18000);
+      },22000);
    }
 
 });
