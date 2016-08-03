@@ -60,10 +60,10 @@ setInterval(function(){
          text += ' -- Wind Speed: '+result.windspeed+' MPH';
          text += ' -- Heading: '+result.heading+'°';
          text += ' -- Panel Angle: '+result.panelAngle+'°';
+         $('#stats').html(text);
          if(result.message != ''){
-            text += ' -- Message: '+result.message;
+            $('#messageText').html(' -- Message: '+result.message);
          }
-         $('#messageText').html(text);
       },
       error : function(jq,err) {
          console.log(err);
