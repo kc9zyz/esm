@@ -49,6 +49,12 @@ case "current-data":
          $timeout = 5;
          $locID = 0;
 
+         if (abs($lat) > 90 || abs($lon) > 180)
+         {
+            header("HTTP/1.1 500 Internal Server Error");
+            echo json_encode(array("error" => "Coordinates Out of Bounds"));
+            return;
+         }
          while($timeout)
          {
             // Returns closest location that is x meters away

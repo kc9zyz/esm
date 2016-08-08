@@ -36,7 +36,7 @@ $.ajax({
          }
       }
       var group = new L.featureGroup(markers);
-      map.fitBounds(group.getBounds().pad(0.25));
+      map.fitBounds(group.getBounds().pad(0.25),{maxZoom:13});
       latestMarker[0].openPopup();
    }
 });

@@ -138,8 +138,11 @@ updateGauge = function(caller, panel, shingle, more, time) {
 
 		// Make sure that valid data is available, gaugejs can't handle NaN
 		if(!isNaN(panel) && !isNaN(shingle)){
+         console.log('panel: '+panel+' Shingle: '+shingle);
 			this.gauge1.set(panel);
 			this.gauge2.set(shingle);
+
+
 		}
 		setInterval( function() {
 			getCurrentData('time');
@@ -148,6 +151,13 @@ updateGauge = function(caller, panel, shingle, more, time) {
 
 	}
 	else if (caller == 'time' && updateGauge.firstTime == 0) {
+		if(isNaN(panel)){
+         panel = 0;
+      }
+		if(isNaN(shingle)){
+         shingle = 0;
+      }
+
 		if(this.gauge1.value != panel){
 			this.gauge1.animationSpeed = 1;
 			this.gauge1.set(panel);
@@ -156,29 +166,35 @@ updateGauge = function(caller, panel, shingle, more, time) {
 			this.gauge2.animationSpeed = 1;
 			this.gauge2.set(shingle);
 		}
-	}
-	// Update the total Watts area
-	$("#totalWatts").html(''+more[0]+' W');
-	$("#panelAngle").html(''+more[1]+' °');
-	$("#heading").html(''+more[2]+' °');
+   }
+   if(panel == 0){
+      $('#current-data-panel-textfield').html('0');
+   }
+   if(shingle == 0){
+      $('#current-data-shingle-textfield').html('0');
+   }
+   // Update the total Watts area
+   $("#totalWatts").html(''+more[0]+' W');
+   $("#panelAngle").html(''+more[1]+' °');
+   $("#heading").html(''+more[2]+' °');
 
-	// Update the energy example screen
-	getEnergyExample(more[0]);
+   // Update the energy example screen
+   getEnergyExample(more[0]);
 
 
 
 
 
-	// Update system status display
-	a = new Date(time);
-	b = new Date();
-	// If the system hasn't updated in 20 minutes, consider it offline
-	if((b - a) > (20*60*1000)){
-		$('#system-live').html('System was last live '+a.toLocaleString());
-	}
-	else{
-		$('#system-live').html('System is live');
-	}
+   // Update system status display
+   a = new Date(time);
+   b = new Date();
+   // If the system hasn't updated in 20 minutes, consider it offline
+   if((b - a) > (20*60*1000)){
+      $('#system-live').html('System was last live '+a.toLocaleString());
+   }
+   else{
+      $('#system-live').html('System is live');
+   }
 
 
 };
