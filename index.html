@@ -20,13 +20,14 @@ body {
 #historicalData {padding-top:50px;color: #fff; background-color: #673ab7;}
 #education {padding-top:50px;padding-bottom:70px;height:800px;max-height:90vh;color: #fff; background-color: #00bcd4;}
 #team {padding-top:50px;padding-bottom:100px;color: #fff; background-color: #009688;}
-#thanks {padding-top:50px;padding-bottom:100px;color: #000; background-color:#B8B8B8;}
+#thanks {padding-top:50px;padding-bottom:100px;color: #000; background-color:#fff;}
 #last-hour-data {height:300px;}
 .nav-tabs > li a { 
    solid #1A3E5E;
    background-color:#2F71AB; 
    color:#fff;
 }
+.thankyous{padding-bottom:10px;}
       </style>
    </head>
    <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -217,52 +218,80 @@ body {
       </div>
       <h3>Background</h3>     
       <p class="text-left" style="text-size:150%">     
-      Consisting of an interdiciplinary group of engineering students, the Educational Solar Module       
+      Consisting of an interdisciplinary group of engineering students, the Educational Solar Module       
       team worked to create the trailer from January to August of 2016.      
       </p>      
 
    </div>     
    <div id="thanks" class="container-fluid">     
       <h1>Thanks</h1>      
-      <h3>The team would like to thank the following institutions for their assistance with the project</h3>     
-      <ul>      
-         <li>Consumers Energy</li>     
-         <li>CyboEnergy</li>    
-         <li>Solar panel provider</li>     
-         <li>JR Automation</li>
-         <li>Quadcopter Guy</li>
-         <li>GVSU Faculty Advisors:</li>
-         <ul>
-            <li>Dr. Karl Brakora</li>
-            <li>Dr. Heidi Jiao</li>
-            <li>Dr. Wael Mokhtar</li>
-            <li>Dr. Mehmet Sozen</li>
-            <li>Professor Terry Stevens</li>
-         </ul>
+      <h3 style="padding-bottom:20px">The team would like to thank the following institutions for the assistance they provided with the project</h3>     
+		<div class="row">
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="https://consumersenergy.com">
+					<img src="images/Consumers-energy-logo.jpg" height=100></img>
+					<p>Consumers Energy</p>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="http://www.gvsu.edu/">
+					<img src="images/gvsu.jpg" height=100></img>
+					<p>Grand Valley State University</p>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="http://www.cyboenergy.com/">
+					<img src="images/CyboEnergy.jpg" height=100></img>
+					<p>CyboEnergy</p>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="https://www.mc-mc.com/">
+					<img src="images/mcmc-logo.png" height=100></img>
+					<p>McNaughton-McKay</p>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="http://www.jrauto.com/">
+					<img src="images/jr.jpg" height=100></img>
+					<p>JR Automation</p>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-5 col-md-4 thankyous">
+				<a href="http://www.gvsu.edu/engineering/">
+				GVSU Faculty Advisors:
+				<ul>
+					<li>Dr. Karl Brakora</li>
+					<li>Dr. Heidi Jiao</li>
+					<li>Dr. Wael Mokhtar</li>
+					<li>Dr. Mehmet Sozen</li>
+					<li>Professor Terry Stevens</li>
+				</ul>
+				</a>
+			</div>
+		</div>
+	</div>
 
-      </ul>
-   </div>
+	</body>
+	<script type="text/javascript">
+function downloadJSAtOnload() {
+	var element = document.createElement("script");
+	element.src = "scripts/min/LAB.min.js";
+	document.body.appendChild(element);
 
-</body>
-<script type="text/javascript">
-   function downloadJSAtOnload() {
-   var element = document.createElement("script");
-   element.src = "scripts/min/LAB.min.js";
-   document.body.appendChild(element);
+	var element = document.createElement("script");
+	element.src = "scripts/min/main.min.js";
+	document.body.appendChild(element);
 
-   var element = document.createElement("script");
-   element.src = "scripts/min/main.min.js";
-   document.body.appendChild(element);
-
-   var element = document.createElement("link");
-   element.src = "";
-   document.head.appendChild(element);
-   }
-   if (window.addEventListener)
-   window.addEventListener("load", downloadJSAtOnload, false);
-   else if (window.attachEvent)
-   window.attachEvent("onload", downloadJSAtOnload);
-   else window.onload = downloadJSAtOnload;
-</script>
+	var element = document.createElement("link");
+	element.src = "";
+	document.head.appendChild(element);
+}
+if (window.addEventListener)
+	window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", downloadJSAtOnload);
+	else window.onload = downloadJSAtOnload;
+	</script>
 </html>
 
