@@ -7,7 +7,7 @@ function waitForElement(){
          .wait()
          .script("scripts/min/scroll.min.js")
          .script("scripts/min/jquery.waypoints.min.js")
-         .script("scripts/min/leaflet.js")
+         .script("scripts/min/leaflet.min.js")
          .wait()
          .script("scripts/min/gauge.min.js")
          .script("scripts/min/map.min.js")
