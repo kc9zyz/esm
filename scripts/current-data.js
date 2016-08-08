@@ -16,7 +16,7 @@ var opts = {
 
 var energy = {
 	'Cell Phone Chargers':	10,
-	'QuickCharge™2.0 Chargers':	25,
+	'QuickCharge™ 2.0 Chargers':	25,
 	'Laptops':	70,
 	'Window AC Units':	600,
 	'Refrigerators':	200,
@@ -24,13 +24,13 @@ var energy = {
 	'Microwaves':	1500,
 	'Blenders':	750,
 	'Toasters':	1000,
-	'Easy bake ovens':	100,
+	'Easy Bake Ovens':	100,
 	'George Foreman Grills':	760,
 	'Dishwashers':	1200,
-	'Panini Press':	1400,
-	'Quesadilla makers':	900,
-	'Waffle irons':	1000,
-	'Pancake skillets':	1000,
+	'Panini Presses':	1400,
+	'Quesadilla Makers':	900,
+	'Waffle Irons':	1000,
+	'Pancake Skillets':	1000,
 	'Space Heaters':	1500
 };
 
@@ -47,7 +47,7 @@ getEnergyExample = function(output){
 	}
 
 	// Shuffle the array
-	for (var i=0; i<100000; i++)
+	for (var i=0; i<1000; i++)
 	{
 		var first = Math.floor((Math.random() * energyArray.length));
 		var second = Math.floor((Math.random() * energyArray.length));
@@ -124,7 +124,7 @@ updateGauge = function(caller, panel, shingle, more, time) {
 		}
 		setInterval( function() {
 			getCurrentData('time');
-		}, 5000);
+		}, 10000);
 
 
 	}
@@ -144,7 +144,7 @@ updateGauge = function(caller, panel, shingle, more, time) {
 	$("#heading").html(''+more[2]+' °');
 
 	// Update the energy example screen
-	getEnergyExample();
+	getEnergyExample(more[0]);
 
 
 
