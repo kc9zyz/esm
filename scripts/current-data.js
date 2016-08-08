@@ -16,7 +16,6 @@ var opts = {
 
 var energy = {
 	'Cell Phone Charger':	10,
-	'QuickCharge™ 2.0 Charger':	25,
 	'Laptop':	70,
 	'Window AC Unit':	600,
 	'Refrigerator':	200,
@@ -31,6 +30,9 @@ var energy = {
 	'Quesadilla Maker':	900,
 	'Waffle Iron':	1000,
 	'Pancake Skillet':	1000,
+   'PS4' : 150,
+   'XBOX One': 120,
+   'Wii U' : 35,
 	'Space Heater':	1500
 };
 
@@ -84,7 +86,7 @@ getEnergyExample = function(output){
 		else{
 			var chosenText = chosenOne[0];
 		}
-		$("#energyComp").html(''+numberPowered+' '+chosenOne[0]);
+		$("#energyComp").html(''+numberPowered+' '+chosenText);
 	}
 	else{
 		$("#energyComp").html('None of the devices on our list without batteries');
