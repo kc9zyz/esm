@@ -15,23 +15,23 @@ var opts = {
 };
 
 var energy = {
-	'Cell Phone Chargers':	10,
-	'QuickCharge™ 2.0 Chargers':	25,
-	'Laptops':	70,
-	'Window AC Units':	600,
-	'Refrigerators':	200,
-	'Washing Machines':	700,
-	'Microwaves':	1500,
-	'Blenders':	750,
-	'Toasters':	1000,
-	'Easy Bake Ovens':	100,
-	'George Foreman Grills':	760,
-	'Dishwashers':	1200,
-	'Panini Presses':	1400,
-	'Quesadilla Makers':	900,
-	'Waffle Irons':	1000,
-	'Pancake Skillets':	1000,
-	'Space Heaters':	1500
+	'Cell Phone Charger':	10,
+	'QuickCharge™ 2.0 Charger':	25,
+	'Laptop':	70,
+	'Window AC Unit':	600,
+	'Refrigerator':	200,
+	'Washing Machine':	700,
+	'Microwave':	1500,
+	'Blender':	750,
+	'Toaster':	1000,
+	'Easy Bake Oven':	100,
+	'George Foreman Grill':	760,
+	'Dishwasher':	1200,
+	'Panini Press':	1400,
+	'Quesadilla Maker':	900,
+	'Waffle Iron':	1000,
+	'Pancake Skillet':	1000,
+	'Space Heater':	1500
 };
 
 getEnergyExample = function(output){
@@ -63,10 +63,27 @@ getEnergyExample = function(output){
 		if (!chosenOne){
 			break;
 		}
+	// Make sure that the value will always end up with greater than
+	// 0 items powered
 	}while(chosenOne[1] > output);
 
 	if (chosenOne){
 		var numberPowered = Math.floor(output / chosenOne[1]);
+		if (numberPowered > 1){
+			var chosenText = chosenOne[0];
+			// Pluralize string. Currently only handling cases
+			// present at time of project completion, a more complex pluralizer
+			// may be needed with more complex examples
+			if (chosenText.slice(-1) == 's'){
+				chosenText += 'es';
+			}
+			else{
+				chosenText += 's';
+			}
+		}
+		else{
+			var chosenText = chosenOne[0];
+		}
 		$("#energyComp").html(''+numberPowered+' '+chosenOne[0]);
 	}
 	else{
