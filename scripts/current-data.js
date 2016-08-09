@@ -123,8 +123,8 @@ updateGauge = function(caller, panel, shingle, more, time) {
 		this.gauge1 = new Gauge(targetPanel).setOptions(opts); // create sexy gauge!
 		this.gauge2 = new Gauge(targetShingle).setOptions(opts); // create sexy gauge!
 
-		this.gauge1.maxValue = 400; // set max gauge value
-		this.gauge2.maxValue = 400; // set max gauge value
+		this.gauge1.maxValue = 220; // set max gauge value
+		this.gauge2.maxValue = 220; // set max gauge value
 
 		this.gauge1.animationSpeed = 13; // set animation speed (32 is default value)
 		this.gauge2.animationSpeed = 13; // set animation speed (32 is default value)
