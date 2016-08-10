@@ -87,8 +87,8 @@ getHistoricalData = function() {
          }
          updateHistorical([times, result.panelOutputs, result.shingleOutputs]);
 
-         $("#historicalPanel").html(''+result.panelkWh+' W');
-         $("#historicalShingle").html(''+result.shinglekWh+' W');
+         $("#historicalPanel").html(''+result.panelkWh+' kWh');
+         $("#historicalShingle").html(''+result.shinglekWh+' kWh');
       }
    });
 };

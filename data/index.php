@@ -181,6 +181,8 @@ case "historical-data":
       $panelkWh += $panelOutputs[$i] * $panelSqm * $sampleTime; 
       $shinglekWh += $shingleOutputs[$i] * $shingleSqm * $sampleTime; 
    }
+   $panelkWh = $panelkWh / 1000;
+   $shinglekWh = $shinglekWh / 1000;
    $panelkWh = floor($panelkWh);
    $shinglekWh = floor($shinglekWh);
 
