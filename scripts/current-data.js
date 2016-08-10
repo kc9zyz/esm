@@ -99,7 +99,7 @@ getCurrentData = function(caller) {
 	$.ajax({
 		url: "data/?asset=current-data",
 		success: function(result){
-			var more = [result.totalOutput,result.panelAngle,result.heading];
+			var more = [result.totalOutput, result.totalPanel, result.totalShingle,result.panelAngle,result.heading];
 			updateGauge(caller, result.panelOutput, result.shingleOutput, more, result.timestamp);
 		},
 		error : function(jq,err) {
@@ -175,8 +175,10 @@ updateGauge = function(caller, panel, shingle, more, time) {
    }
    // Update the total Watts area
    $("#totalWatts").html(''+more[0]+' W');
-   $("#panelAngle").html(''+more[1]+' °');
-   $("#heading").html(''+more[2]+' °');
+   $("#totalPanel").html(''+more[1]+' W');
+   $("#totalShingle").html(''+more[2]+' W');
+   $("#panelAngle").html(''+more[3]+' °');
+   $("#heading").html(''+more[4]+' °');
 
    // Update the energy example screen
    getEnergyExample(more[0]);

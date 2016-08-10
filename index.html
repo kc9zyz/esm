@@ -98,6 +98,9 @@ body {
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
                <h3 class="text-center">More Information</h3>
+               <h4 class="text-center">Output:</h4>
+               <p class="text-center">Panel Power: <strong id="totalPanel"></strong> </p>
+               <p class="text-center">Shingle Power: <strong id="totalShingle"></strong> </p>
                <p class="text-center">Total Power: <strong id="totalWatts"></strong> </p>
                <p class="text-center">We Can Power: <strong id="energyComp"></strong> </p>
                <p class="text-center">Panel Angle: <strong id="panelAngle"></strong> </p>
@@ -132,6 +135,7 @@ body {
       <div class="row">
          <div class="col-xs-12" >
             <h1>Historical Data</h1>
+            <h4>Over the selected range, the system generated <strong id="historicalPanel"></strong> from the panels, and <strong id="historicalShingle"></strong> from the shingles.</h4>
             <p id="system-live-time" class="text-left"></p>
             <div class="dropdown">
                <button class="btn btn-default dropdown-toggle" style="margin-bottom:15px" type="button" id="historicalDrop" data-toggle="dropdown" aria-haspopup="true">

@@ -85,8 +85,10 @@ getHistoricalData = function() {
                   break;
             }
          }
-         var points = result.panelOutputs;
-         updateHistorical([times, result.panelOutputs, result.shingleOutputs])
+         updateHistorical([times, result.panelOutputs, result.shingleOutputs]);
+
+         $("#historicalPanel").html(''+result.panelkWh+' W');
+         $("#historicalShingle").html(''+result.shinglekWh+' W');
       }
    });
 };

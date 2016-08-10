@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
 $panelSqm = 15.6;
-$shingleSqm = 15;
-$sampleTime = 5/60;
+$shingleSqm = 9.79;
+$sampleTime = 15/60;
 $locationPrecision = 100; // Meters away from a location that is considered independent
 
 $conn = mysqli_connect($servername, $username, $password, $db);
@@ -100,8 +100,12 @@ case "current-data":
    if(mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
          // Calculate the total output based on system parameters
-         $totalOutput = floor(((int)$row["panelOutput"] * $panelSqm) + ((int)$row["shingleOutput"] * $shingleSqm));
-         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],'totalOutput' => $totalOutput, 'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"]);
+         $totalPanel = floor((int)$row["panelOutput"] * $panelSqm);
+         $totalShingle = floor((int)$row["shingleOutput"] * $shingleSqm);
+         $totalOutput = $totalPanel + $totalShingle;
+         $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],
+            'totalShingle' => $totalShingle, 'totalPanel' => $totalPanel, 'totalOutput' => $totalOutput,
+            'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"]);
       }
    }
    else{
@@ -168,6 +172,18 @@ case "historical-data":
          array_push($locations,$row["location"]);
       }
    }
+   // Tally the produced power over the period selected
+   $panelkWh = 0;
+   $shinglekWh = 0;
+   // Loop and integrate
+   for($i=0;$i<count($panelOutputs);$i++)
+   {
+      $panelkWh += $panelOutputs[$i] * $panelSqm * $sampleTime; 
+      $shinglekWh += $shingleOutputs[$i] * $shingleSqm * $sampleTime; 
+   }
+   $panelkWh = floor($panelkWh);
+   $shinglekWh = floor($shinglekWh);
+
    // Check if the number of returned points is greater than the number requested
    if($numPoints && count($times) > $numPoints)
    {
@@ -252,7 +268,8 @@ case "historical-data":
       {
          $locations[$i] = array($locationsData[$locations[$i]][0],$locationsData[$locations[$i]][1]);
       }
-      $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs, 'headings' => $headings, 'panelAngles' => $panelAngles, 'locations' => $locations);
+      $data = array('times' => $times, 'panelOutputs'=> $panelOutputs, 'shingleOutputs' => $shingleOutputs,
+         'headings' => $headings, 'panelAngles' => $panelAngles, 'locations' => $locations, 'panelkWh' => $panelkWh, 'shinglekWh' => $shinglekWh);
       header('Content-Type: application/json');
       echo json_encode($data);
    }
