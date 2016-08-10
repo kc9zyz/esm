@@ -51,7 +51,7 @@ case "current-data":
 
          if (abs($lat) > 90 || abs($lon) > 180)
          {
-            header("HTTP/1.1 500 Internal Server Error");
+            header("HTTP/1.1 400 Bad Request");
             echo json_encode(array("error" => "Coordinates Out of Bounds"));
             return;
          }
