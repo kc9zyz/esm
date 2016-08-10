@@ -7,7 +7,7 @@ ini_set('display_errors', 'on');
 
 $panelSqm = 15.6;
 $shingleSqm = 9.79;
-$sampleTime = 15/60;
+$sampleTime = 5/60;
 $locationPrecision = 100; // Meters away from a location that is considered independent
 
 $conn = mysqli_connect($servername, $username, $password, $db);
@@ -144,7 +144,7 @@ case "historical-data":
       $sql = "select * from esm where timestamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
    case "all":
-      $sql = "select * from esm ORDER BY timestamp ASC;";
+      $sql = "select * from esm where timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
 
    default:

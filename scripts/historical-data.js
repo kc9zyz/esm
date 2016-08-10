@@ -87,8 +87,26 @@ getHistoricalData = function() {
          }
          updateHistorical([times, result.panelOutputs, result.shingleOutputs]);
 
-         $("#historicalPanel").html(''+result.panelkWh+' kWh');
-         $("#historicalShingle").html(''+result.shinglekWh+' kWh');
+         if (result.panelkWh > 2000)
+         {
+            result.panelkWh /= 1000;
+            result.panelkWh = result.panelkWh.toPrecision(3);
+            $("#historicalPanel").html(''+result.panelkWh+' MWh');
+         }
+         else
+         {
+            $("#historicalPanel").html(''+result.panelkWh+' kWh');
+         }
+         if (result.shinglekWh > 2000)
+         {
+            result.shinglekWh /= 1000;
+            result.shinglekWh = result.shinglekWh.toPrecision(3);
+            $("#historicalShingle").html(''+result.shinglekWh+' MWh');
+         }
+         else
+         {
+            $("#historicalShingle").html(''+result.shinglekWh+' kWh');
+         }
       }
    });
 };
