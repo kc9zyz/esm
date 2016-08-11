@@ -146,6 +146,12 @@ case "historical-data":
    case "all":
       $sql = "select * from esm where timestamp <= NOW() ORDER BY timestamp ASC;";
       break;
+   case "date":
+      $startDate = mysqli_real_escape_string($conn,filter_input(INPUT_GET,"startDate",FILTER_SANITIZE_STRING));
+      $endDate = mysqli_real_escape_string($conn,filter_input(INPUT_GET,"endDate",FILTER_SANITIZE_STRING));
+      $sql = 'select * from esm where timestamp >= "'.$startDate.'" AND timestamp <= "'.$endDate.'" ;';
+      break;
+
 
    default:
       header("HTTP/1.1 400 Bad Request");

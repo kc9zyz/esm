@@ -173,15 +173,18 @@ updateGauge = function(caller, panel, shingle, more, time) {
    if(shingle == 0){
       $('#current-data-shingle-textfield').html('0');
    }
+   // Fade out the energy Comparison, change text and fade in when done
+   $('#powerLine').fadeOut(1500,function(){
+      $('#powerLine').fadeIn();
+      getEnergyExample(more[0]);
+   });
    // Update the total Watts area
    $("#totalWatts").html(''+more[0]+' W');
    $("#totalPanel").html(''+more[1]+' W');
    $("#totalShingle").html(''+more[2]+' W');
    $("#panelAngle").html(''+more[3]+' °');
    $("#heading").html(''+more[4]+' °');
-
    // Update the energy example screen
-   getEnergyExample(more[0]);
 
 
 
