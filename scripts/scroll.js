@@ -150,7 +150,7 @@ $(document).ready(function (){
       {
          $('#tabs-section').remove();
          $('#education').height(100);
-         $('#education').append('<div class="btn-toolbar"><a class="btn btn-primary" href="education/genpub.html" style="padding:10px;">General</a><a class="btn btn-primary" href="education/genpub.html" style="padding:10px;">Early Adopters</a></div');
+         $('#education').append('<div class="btn-toolbar"><a class="btn btn-primary" href="education/genpub.html" style="padding:10px;">General</a><a class="btn btn-primary" href="education/early.html" style="padding:10px;">Early Adopters</a></div');
 
       }
    }
