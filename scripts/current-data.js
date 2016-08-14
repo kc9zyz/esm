@@ -99,7 +99,7 @@ getCurrentData = function(caller) {
 	$.ajax({
 		url: "data/?asset=current-data",
 		success: function(result){
-			var more = [result.totalOutput, result.totalPanel, result.totalShingle,result.panelAngle,result.heading];
+			var more = [result.totalOutput, result.totalPanel, result.totalShingle,result.panelAngle,result.heading, result.boxTemp, result.windSpeed];
 			updateGauge(caller, result.panelOutput, result.shingleOutput, more, result.timestamp);
 		},
 		error : function(jq,err) {
@@ -132,8 +132,8 @@ updateGauge = function(caller, panel, shingle, more, time) {
 		this.gauge1.setTextField(document.getElementById("current-data-panel-textfield"));
 		this.gauge2.setTextField(document.getElementById("current-data-shingle-textfield"));
 
-		this.gauge1.set(0); // set actual value
-		this.gauge2.set(0); // set actual value
+		this.gauge1.set(1); // set actual value
+		this.gauge2.set(1); // set actual value
 
 
 		// Make sure that valid data is available, gaugejs can't handle NaN
@@ -160,11 +160,22 @@ updateGauge = function(caller, panel, shingle, more, time) {
 
 		if(this.gauge1.value != panel){
 			this.gauge1.animationSpeed = 1;
-			this.gauge1.set(panel);
+         if(panel == 0){
+            this.gauge1.set(1);
+         }
+         else{
+            this.gauge1.set(panel);
+         }
+
 		}
 		if(this.gauge2.value != shingle){
 			this.gauge2.animationSpeed = 1;
-			this.gauge2.set(shingle);
+         if(shingle == 0){
+            this.gauge2.set(1);
+         }
+         else{
+            this.gauge2.set(shingle);
+         }
 		}
    }
    if(panel == 0){
@@ -184,7 +195,8 @@ updateGauge = function(caller, panel, shingle, more, time) {
    $("#totalShingle").html(''+more[2]+' W');
    $("#panelAngle").html(''+more[3]+' °');
    $("#heading").html(''+more[4]+' °');
-   // Update the energy example screen
+   $("#boxTemp").html(''+more[5]+' °F');
+   $("#windSpeed").html(''+more[6]+' MPH');
 
 
 

@@ -105,7 +105,8 @@ case "current-data":
          $totalOutput = $totalPanel + $totalShingle;
          $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],
             'totalShingle' => $totalShingle, 'totalPanel' => $totalPanel, 'totalOutput' => $totalOutput,
-            'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"]);
+            'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"],
+            'boxTemp' => $row["boxTemp"], 'windSpeed' => $row["windSpeed"]);
       }
    }
    else{
