@@ -49,7 +49,7 @@ case "current-data":
          $timeout = 5;
          $locID = 0;
 
-         if (abs($lat) > 90 || abs($lon) > 180)
+         if (abs($lat) > 90 || $lat==0 || $lon == 0 || abs($lon) > 180)
          {
             header("HTTP/1.1 400 Bad Request");
             echo json_encode(array("error" => "Coordinates Out of Bounds"));
