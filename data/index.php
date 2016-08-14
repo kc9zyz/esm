@@ -35,6 +35,8 @@ case "current-data":
          $lon = (float)$sentData["lon"];
          $heading = (int)$sentData["heading"];
          $panelAngle = (int)$sentData["panelAngle"];
+         $boxTemp = (int)$sentData["boxTemp"];
+         $windSpeed = (int)$sentData["windSpeed"];
 
          $sql = "select * from esm WHERE timestamp = ".$timestamp.";";
          $result = mysqli_query($conn, $sql);
@@ -86,7 +88,7 @@ case "current-data":
          }
 
          // Insert the data point into the esm table
-         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panelAngle) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panelAngle.");";
+         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panelAngle,boxTemp,windSpeed) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panelAngle.",".$boxTemp.",".$windSpeed.");";
          $result = mysqli_query($conn, $sql);
       } else {
          header("HTTP/1.1 401 Unauthorized");
