@@ -190,13 +190,13 @@ updateGauge = function(caller, panel, shingle, more, time) {
       getEnergyExample(more[0]);
    });
    // Update the total Watts area
-   $("#totalWatts").html(''+more[0]+' W');
-   $("#totalPanel").html(''+more[1]+' W');
-   $("#totalShingle").html(''+more[2]+' W');
-   $("#panelAngle").html(''+more[3]+' °');
-   $("#heading").html(''+more[4]+' °');
-   $("#boxTemp").html(''+more[5]+' °F');
-   $("#windSpeed").html(''+more[6]+' MPH');
+   $("#totalWatts").html(''+more[0]+'&nbsp;W');
+   $("#totalPanel").html(''+more[1]+'&nbsp;W');
+   $("#totalShingle").html(''+more[2]+'&nbsp;W');
+   $("#panelAngle").html(''+more[3]+'&nbsp;°');
+   $("#heading").html(''+more[4]+'&nbsp;°');
+   $("#boxTemp").html(''+more[5]+'&nbsp;°F');
+   $("#windSpeed").html(''+more[6]+'&nbsp;MPH');
 
 
 
