@@ -37,6 +37,7 @@ case "current-data":
          $panelAngle = (int)$sentData["panelAngle"];
          $boxTemp = (int)$sentData["boxTemp"];
          $windSpeed = (int)$sentData["windSpeed"];
+         $batteryLevel = (int)$sentData["batteryLevel"];
 
          $sql = "select * from esm WHERE timestamp = ".$timestamp.";";
          $result = mysqli_query($conn, $sql);
@@ -88,7 +89,7 @@ case "current-data":
          }
 
          // Insert the data point into the esm table
-         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panelAngle,boxTemp,windSpeed) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panelAngle.",".$boxTemp.",".$windSpeed.");";
+         $sql = "insert into esm (panelOutput,shingleOutput,timestamp,location,heading,panelAngle,boxTemp,windSpeed,batteryLevel) VALUES (".$panelOutput.",".$shingleOutput.",".$timestamp.",".$locID.",".$heading.",".$panelAngle.",".$boxTemp.",".$windSpeed.",".$batteryLevel.");";
          $result = mysqli_query($conn, $sql);
       } else {
          header("HTTP/1.1 401 Unauthorized");
@@ -108,7 +109,7 @@ case "current-data":
          $data = array('panelOutput' => (int)$row["panelOutput"],'shingleOutput' => (int)$row["shingleOutput"],
             'totalShingle' => $totalShingle, 'totalPanel' => $totalPanel, 'totalOutput' => $totalOutput,
             'timestamp' => $row["timestamp"], 'panelAngle' => $row["panelAngle"], 'heading' => $row["heading"],
-            'boxTemp' => $row["boxTemp"], 'windSpeed' => $row["windSpeed"]);
+            'boxTemp' => $row["boxTemp"], 'windSpeed' => $row["windSpeed"], 'batteryLevel' => $row["batteryLevel"]);
       }
    }
    else{

@@ -116,7 +116,7 @@ getCurrentData = function(caller) {
 	$.ajax({
 		url: "data/?asset=current-data",
 		success: function(result){
-			var more = [result.totalOutput, result.totalPanel, result.totalShingle,result.panelAngle,result.heading, result.boxTemp, result.windSpeed];
+			var more = [result.totalOutput, result.totalPanel, result.totalShingle,result.panelAngle,result.heading, result.boxTemp, result.windSpeed, result.batteryLevel];
 			updateGauge(caller, result.panelOutput, result.shingleOutput, more, result.timestamp);
 		},
 		error : function(jq,err) {
@@ -214,10 +214,7 @@ updateGauge = function(caller, panel, shingle, more, time) {
    $("#heading").html(''+more[4]+'&nbsp;°'+getCardinal(more[4]));
    $("#boxTemp").html(''+more[5]+'&nbsp;°F');
    $("#windSpeed").html(''+more[6]+'&nbsp;MPH');
-
-
-
-
+   $("#batteryLevel").html(''+more[7]+'%');
 
    // Update system status display
    a = new Date(time);
@@ -229,7 +226,5 @@ updateGauge = function(caller, panel, shingle, more, time) {
    else{
       $('#system-live').html('System is live');
    }
-
-
 };
 getCurrentData('waypoint');

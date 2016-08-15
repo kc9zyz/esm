@@ -19,6 +19,7 @@ CREATE TABLE `esm` (
   `panelAngle` tinyint(4) DEFAULT '0',
   `boxTemp` smallint(6) DEFAULT '0',
   `windSpeed` smallint(6) DEFAULT '0',
+  `batteryLevel` smallint(6) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `location` (`location`),
   CONSTRAINT `esm_ibfk_1` FOREIGN KEY (`location`) REFERENCES `locations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
