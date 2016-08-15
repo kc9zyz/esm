@@ -1,5 +1,23 @@
 var hold1 = false;
 var hold2 = false;
+getCardinal = function(heading){
+   if(heading > 298 || heading < 61){
+      return 'N';
+   }
+   else if(heading >=61 || heading < 118){
+      return 'E';
+   }
+   else if(heading >=118 || heading < 241){
+      return 'S';
+   }
+   else if(heading >=241 || heading < 298){
+      return 'W';
+   }
+   return '?';
+
+}
+
+
 setInterval(function(){
    // Check if the slides have finished on either frame 
    if($('#general').attr('class') == 'tab-pane active'){
@@ -58,7 +76,7 @@ setInterval(function(){
          text += ' -- Electrical Box Temperature: '+result.boxTemp+'°F';
          text += ' -- Battery: '+result.battery+'%';
          text += ' -- Wind Speed: '+result.windspeed+' MPH';
-         text += ' -- Heading: '+result.heading+'°';
+         text += ' -- Heading: '+result.heading+'°'+getCardinal(result.heading);
          text += ' -- Panel Angle: '+result.panelAngle+'°';
          $('#stats').html(text);
          if(result.message != ''){
