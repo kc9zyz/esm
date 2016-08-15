@@ -14,6 +14,23 @@ var opts = {
    generateGradient: true,
 };
 
+getCardinal = function(heading){
+   if(heading > 298 || heading < 61){
+      return 'N';
+   }
+   else if(heading >=61 || heading < 118){
+      return 'E';
+   }
+   else if(heading >=118 || heading < 241){
+      return 'S';
+   }
+   else if(heading >=241 || heading < 298){
+      return 'W';
+   }
+   return '?';
+
+}
+
 var energy = {
 	'Cell Phone Charger':	10,
 	'Laptop':	70,
@@ -194,7 +211,7 @@ updateGauge = function(caller, panel, shingle, more, time) {
    $("#totalPanel").html(''+more[1]+'&nbsp;W');
    $("#totalShingle").html(''+more[2]+'&nbsp;W');
    $("#panelAngle").html(''+more[3]+'&nbsp;°');
-   $("#heading").html(''+more[4]+'&nbsp;°');
+   $("#heading").html(''+more[4]+'&nbsp;°'+getCardinal(more[4]));
    $("#boxTemp").html(''+more[5]+'&nbsp;°F');
    $("#windSpeed").html(''+more[6]+'&nbsp;MPH');
 
