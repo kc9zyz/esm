@@ -4,13 +4,13 @@ getCardinal = function(heading){
    if(heading > 298 || heading < 61){
       return 'N';
    }
-   else if(heading >=61 || heading < 118){
+   else if(heading >=61 && heading < 118){
       return 'E';
    }
-   else if(heading >=118 || heading < 241){
+   else if(heading >=118 && heading < 241){
       return 'S';
    }
-   else if(heading >=241 || heading < 298){
+   else if(heading >=241 && heading < 298){
       return 'W';
    }
    return '?';
