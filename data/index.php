@@ -39,6 +39,11 @@ case "current-data":
          $windSpeed = (int)$sentData["windSpeed"];
          $batteryLevel = (int)$sentData["batteryLevel"];
 
+         // Correct for erronious sign drop in longitude
+         if($lon > 0) {
+             $lon = -$lon;
+         }
+
          $sql = "select * from esm WHERE timestamp = ".$timestamp.";";
          $result = mysqli_query($conn, $sql);
          // Check if timestamp is already in database, reject as a replay attack
